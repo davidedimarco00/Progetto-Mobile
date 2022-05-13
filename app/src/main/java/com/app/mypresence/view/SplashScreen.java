@@ -1,23 +1,36 @@
 package com.app.mypresence.view;
 import com.app.mypresence.R;
+import com.app.mypresence.presenter.SplashPresenter;
+import com.app.mypresence.presenter.SplashPresenterInterface;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-
-import java.util.Objects;
 
 
 public class SplashScreen extends AppCompatActivity {
+
+    private final SplashPresenterInterface presenter =  new SplashPresenter(this);
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Objects.requireNonNull(getSupportActionBar()).hide();
+        presenter.hideActionBar();
+        presenter.startLoginActivity(LoginActivity.class, handler);
+    }
 
+    @Override
+    protected void onResume() {
+        presenter.onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        presenter.removeCallBack();
+        super.onPause();
     }
 }

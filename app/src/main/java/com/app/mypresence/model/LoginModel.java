@@ -1,4 +1,4 @@
 package com.app.mypresence.model;
 
-public interface ModelInterface {
+public class LoginModel {
 }
