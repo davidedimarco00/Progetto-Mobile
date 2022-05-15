@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.LoginActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
 
     <LinearLayout
@@ -26,6 +30,9 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/app_name"
                 android:textAlignment="center"
+                android:textColor="@color/white"
+
+                android:shadowDx="32"
                 android:textSize="32dp" />
         </FrameLayout>
 
@@ -76,7 +83,7 @@
 
             <!-- INPUT -->
             <EditText
-                android:id="@+id/pass"
+                android:id="@+id/pass_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/icon"
@@ -103,8 +110,29 @@
 
         </RelativeLayout>
 
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:textAlignment="textStart"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="18.7dp"
+            android:layout_marginRight="62dp"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:text="@string/remember_me"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:checked="false"
+            android:buttonTint="@color/purple_500"
+            />
 
-        <TextView
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -116,9 +144,12 @@
             android:gravity="center"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="Login"
-            android:textColor="#ffffff"
-            android:textSize="12sp" />
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:clickable="true"/>
+
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -131,7 +162,5 @@
             android:textSize="10.5sp" />
     </LinearLayout>
 
-
-
-
-</RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

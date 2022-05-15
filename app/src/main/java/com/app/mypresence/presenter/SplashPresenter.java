@@ -5,11 +5,16 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.mypresence.model.Model;
+import com.app.mypresence.model.SplashScreenModel;
+import com.app.mypresence.model.SplashScreenModelInterface;
 import com.app.mypresence.view.LoginActivity;
 import com.app.mypresence.view.SplashScreen;
+import com.app.mypresence.view.UserActivity;
 
 public class SplashPresenter extends Presenter implements SplashPresenterInterface {
     private final AppCompatActivity activity;
+    private final SplashScreenModelInterface model = new SplashScreenModel(this);
     private Handler handler;
 
 
@@ -28,19 +33,40 @@ public class SplashPresenter extends Presenter implements SplashPresenterInterfa
         }
     };
 
+    Runnable runUserActivity = new Runnable() {
+        @Override
+        public void run() {
+            if (!activity.isFinishing()){
+                activity.startActivity(new Intent(activity.getApplicationContext(), UserActivity.class));
+                activity.finish();
+            }
+        }
+    };
     @Override
     public void startLoginActivity(Class<LoginActivity> startActivity, Handler handler) {
         this.handler = handler;
-        //this.handler.postDelayed(runLogin, 2000);
+    }
+
+    @Override
+    public void startUserActivity(Handler handler) {
+        this.handler = handler;
+        this.handler.postDelayed(runUserActivity, 4000);
     }
 
     @Override
     public void removeCallBack() {
         this.handler.removeCallbacks(runLogin);
+        this.handler.removeCallbacks(runUserActivity);
     }
 
     @Override
     public void onResume() {
         this.handler.postDelayed(runLogin, 4000);
+
+    }
+
+    @Override
+    public boolean checkForAutomaticLogin() {
+        return this.model.checkSavedLoginData();
     }
 }

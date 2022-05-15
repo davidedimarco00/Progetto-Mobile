@@ -1,5 +1,7 @@
 package com.app.mypresence.presenter;
 
+import android.content.Context;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
@@ -14,11 +16,17 @@ public class Presenter implements PresenterInterface {
     private final AppCompatActivity activity;
 
     public Presenter(AppCompatActivity activity) {
+
         this.activity = activity;
     }
 
     @Override
     public void hideActionBar() {
         Objects.requireNonNull(this.activity.getSupportActionBar()).hide();
+    }
+
+    @Override
+    public Context getActivityContext() {
+        return this.activity;
     }
 }

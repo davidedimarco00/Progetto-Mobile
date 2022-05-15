@@ -1,7 +1,15 @@
 package com.app.mypresence.presenter;
 
-public interface LoginPresenterInterface {
+import androidx.appcompat.app.AppCompatActivity;
 
-    void login(String username, String password);
+public interface LoginPresenterInterface extends PresenterInterface {
+
+    boolean login(String username, String password);
+
+    void startUserActivity();
+
+    void rememberLogin();
+
+    AppCompatActivity getActivity();
 
 }
