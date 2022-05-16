@@ -19,9 +19,10 @@ public class SplashScreenModel extends Model implements SplashScreenModelInterfa
     @Override
     public boolean checkSavedLoginData() {
         boolean loggedIn;
-
         SharedPreferences prefs = this.presenter.getActivityContext().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
         loggedIn = prefs.getBoolean("loggedIn", false);
+
+        Log.e("AUTO LOGIN", String.valueOf(loggedIn)); /*JUST DEBUG*/
         return loggedIn;
     }
 

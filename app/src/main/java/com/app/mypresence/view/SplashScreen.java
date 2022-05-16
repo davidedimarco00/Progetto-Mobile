@@ -19,15 +19,11 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         presenter.hideActionBar();
-
-
             if (!presenter.checkForAutomaticLogin()) {
                 presenter.startLoginActivity(LoginActivity.class, handler);
             } else {
                 presenter.startUserActivity(handler);
             }
-
-
     }
 
     @Override
