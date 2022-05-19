@@ -8,4 +8,7 @@ public interface UserActivityPresenterInterface extends PresenterInterface {
     void showUserFragment(Class<UserFragment> userFragment);
     void showAdminFragment(Class<AdminFragment> adminFragment);
 
+    void showStatisticFragment();
+
+    void showSettingsFragment();
 }
