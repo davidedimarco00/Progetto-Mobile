@@ -1,4 +1,4 @@
-package com.app.mypresence.model.Database;
+package com.app.mypresence.model.database;
 
 import android.app.Application;
 
@@ -6,12 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+
+import com.app.mypresence.model.database.user.User;
+import com.app.mypresence.model.database.user.UserRepository;
 
 import java.util.List;
 
 public class MyPresenceViewModel extends AndroidViewModel {
-    private MutableLiveData<List<User>> users;
+    private LiveData<List<User>> users;
 
     private UserRepository userRepo;
 
@@ -21,8 +23,12 @@ public class MyPresenceViewModel extends AndroidViewModel {
         this.users = this.userRepo.getAllUsers();
     }
 
-    MutableLiveData<List<User>> getAllUsers(){return this.users;}
+    public LiveData<List<User>> getAllUsers(){return this.users;}
 
     public void addUser(final User user){this.userRepo.addUser(user);}
+
+    public List<User> getUserFromUsernameAndPassword(String username, String password){
+        return this.userRepo.getUserFromUsernameAndPassword(username, password);
+    }
 
 }

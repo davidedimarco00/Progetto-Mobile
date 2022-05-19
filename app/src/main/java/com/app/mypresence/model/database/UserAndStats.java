@@ -1,8 +1,10 @@
-package com.app.mypresence.model.Database;
+package com.app.mypresence.model.database;
 
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Relation;
+
+import com.app.mypresence.model.database.user.User;
 
 import java.util.List;
 

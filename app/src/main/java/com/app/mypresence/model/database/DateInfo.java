@@ -1,8 +1,10 @@
-package com.app.mypresence.model.Database;
+package com.app.mypresence.model.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.app.mypresence.model.utils.Converters;
 
 import java.util.Date;
 
@@ -16,11 +18,11 @@ public class DateInfo {
     @ColumnInfo(name = "status")
     private String status;
     @ColumnInfo(name = "date")
-    private Date date;
+    private Long date;
 
     public int userOwnerOfStat;
 
-    public DateInfo(final String status, final Date date){
+    public DateInfo(final String status, final Long date){
         this.status = status;
         this.date = date;
     }
@@ -33,7 +35,18 @@ public class DateInfo {
         return status;
     }
 
-    public Date getDate() {
-        return date;
+    public Long getDate() {return this.date;}
+
+    public void setDateInfoId(int dateInfoId) {
+        this.dateInfoId = dateInfoId;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDate(Long date) {
+        this.date = date;
+    }
+
 }
