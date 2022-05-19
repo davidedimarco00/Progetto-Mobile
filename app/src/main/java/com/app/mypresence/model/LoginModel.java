@@ -7,7 +7,6 @@ import android.util.Log;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.app.mypresence.model.database.MyPresenceViewModel;
-import com.app.mypresence.model.database.user.User;
 import com.app.mypresence.presenter.LoginPresenterInterface;
 import com.app.mypresence.presenter.Presenter;
 
@@ -15,18 +14,19 @@ public class LoginModel extends Model implements LoginModelInterface {
 
     private LoginPresenterInterface presenter;
     private SharedPreferences sharedPref;
-
+    private MyPresenceViewModel myPresenceViewModel;
 
     public LoginModel(Presenter presenter){
         Log.e ("presenter", presenter.toString());
         this.presenter =  (LoginPresenterInterface) presenter;
         this.sharedPref = this.presenter.getActivityContext().getSharedPreferences("loginPreferences",Context.MODE_PRIVATE);
-
+        this.myPresenceViewModel = new ViewModelProvider(this.presenter.getActivity()).get(MyPresenceViewModel.class);
+        //this.myPresenceViewModel.addUser(new User("Davide", "Di Marco", "dima", "dima1", ""));
     }
 
     @Override
     public boolean login(String password, String username) {
-        return true;
+        return !this.myPresenceViewModel.getUserFromUsernameAndPassword(username, password).isEmpty();
     }
 
     @Override

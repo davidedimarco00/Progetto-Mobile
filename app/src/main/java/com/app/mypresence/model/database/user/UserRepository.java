@@ -3,7 +3,6 @@ package com.app.mypresence.model.database.user;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.app.mypresence.model.database.AppDatabase;
 import com.app.mypresence.model.database.UserAndStats;
