@@ -32,10 +32,20 @@ public class UserActivityPresenter extends Presenter implements UserActivityPres
         this.showFragment(adminFragment);
     }
 
+    @Override
+    public void showStatisticFragment() {
+
+    }
+
+    @Override
+    public void showSettingsFragment() {
+
+    }
+
     private void showFragment(Class<? extends Fragment> fragment) {
         this.activity.getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, fragment, null)
+                .replace(R.id.fragment_container_view, fragment, null)
                 .commit();
     }
 }
