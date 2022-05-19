@@ -56,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
                             presenter.rememberLogin();
                         }
                         presenter.startUserActivity();
+                    }else{
+                        Toast.makeText(this, "Wrong credentials", Toast.LENGTH_SHORT).show();
                     }
             };
 
