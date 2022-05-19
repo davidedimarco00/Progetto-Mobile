@@ -1,6 +1,6 @@
 package com.app.mypresence.model;
 
 public interface LoginModelInterface {
-    void login();
+    boolean login(String password, String username);
     void saveLogin();
 }

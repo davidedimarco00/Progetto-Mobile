@@ -2,28 +2,28 @@ package com.app.mypresence.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.app.mypresence.model.database.MyPresenceViewModel;
 import com.app.mypresence.model.LoginModel;
 import com.app.mypresence.model.LoginModelInterface;
 import com.app.mypresence.view.UserActivity;
 
 public class LoginPresenter extends Presenter implements LoginPresenterInterface {
     private final AppCompatActivity activity;
-    private final LoginModelInterface model = new LoginModel(this);
+    private final LoginModelInterface model;
 
     public LoginPresenter(AppCompatActivity activity) {
         super(activity);
         this.activity = activity;
+        this.model = new LoginModel(this);
     }
 
     @Override
     public boolean login(String username, String password) {
-        //if json contains the username and password is correct log in else not login
-        //model.login()
-        return true;
+        return this.model.login(username, password);
     }
 
     @Override
