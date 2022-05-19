@@ -33,18 +33,8 @@ public class LoginPresenter extends Presenter implements LoginPresenterInterface
     }
 
     @Override
-    public boolean login(String password, String username) {
-        System.out.println("---------------");
-        this.myPresenceViewModel.getUserFromUsernameAndPassword(username).observe(this.activity, users -> {
-
-            Log.e("DIOCANE", String.valueOf(users.size()));
-            for (User user : users) {
-                Log.e("User: ",user.getUsername());
-            }
-        });
-        System.out.println("---------------");
-        return true;
-
+    public boolean login(String username, String password) {
+        return !this.myPresenceViewModel.getUserFromUsernameAndPassword(username, password).isEmpty();
     }
 
     @Override

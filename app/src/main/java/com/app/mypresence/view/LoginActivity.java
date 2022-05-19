@@ -49,17 +49,19 @@ public class LoginActivity extends AppCompatActivity {
 
             String username = usernameText.getText().toString();
             String password = passwordText.getText().toString();
-            username = username.replaceAll("\\s+","");
 
-            System.out.println(username);
-            System.out.println(username.length());
-            System.out.println(password);
-            if (presenter.login(username, password)){
-                if (checkBox.isChecked()){
-                    presenter.rememberLogin();
-                }
-                presenter.startUserActivity();
-            }
+            Runnable loginThread = () -> {
+                    if (presenter.login(username, password)){
+                        if (checkBox.isChecked()){
+                            presenter.rememberLogin();
+                        }
+                        presenter.startUserActivity();
+                    }
+            };
+
+            loginThread.run();
+
+
         });
 
     }

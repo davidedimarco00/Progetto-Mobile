@@ -37,8 +37,8 @@ public class UserRepository {
         AppDatabase.executor.execute(() -> this.userDAO.addUser(user));
     }
 
-    public LiveData<List<User>> getUserFromUsernameAndPassword(String username){
-        return this.userDAO.checkIfUsernameAndPasswordAreCorrect(username);
+    public List<User> getUserFromUsernameAndPassword(String username, String password){
+        return this.userDAO.checkIfUsernameAndPasswordAreCorrect(username, password);
     }
 
 }

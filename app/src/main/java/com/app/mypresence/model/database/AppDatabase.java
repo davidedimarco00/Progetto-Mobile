@@ -30,6 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE = Room
                             .databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database")
                             .addCallback(sRoomDatabasePopulatorCallback)
+                            .allowMainThreadQueries()
                             .build();
                 }
             }

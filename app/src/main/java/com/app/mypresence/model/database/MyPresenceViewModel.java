@@ -27,8 +27,8 @@ public class MyPresenceViewModel extends AndroidViewModel {
 
     public void addUser(final User user){this.userRepo.addUser(user);}
 
-    public LiveData<List<User>> getUserFromUsernameAndPassword(String username){
-        return this.userRepo.getUserFromUsernameAndPassword(username);
+    public List<User> getUserFromUsernameAndPassword(String username, String password){
+        return this.userRepo.getUserFromUsernameAndPassword(username, password);
     }
 
 }
