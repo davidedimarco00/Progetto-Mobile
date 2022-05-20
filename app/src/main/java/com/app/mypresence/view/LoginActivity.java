@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = passwordText.getText().toString();
 
             Runnable loginThread = () -> {
-                    if (this.presenter.login(username, password)){
+                    if (this.presenter.login(password, username)){
                         if (checkBox.isChecked()){
                             presenter.rememberLogin();
                         }

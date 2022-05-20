@@ -2,6 +2,7 @@ package com.app.mypresence.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -39,6 +40,7 @@ public class LoginPresenter extends Presenter implements LoginPresenterInterface
     @Override
     public void startUserActivity() {
         Intent intent = new Intent(activity.getApplicationContext(), UserActivity.class);
+        intent.putExtra("userInfo", this.model.getUserInfo());
         activity.startActivity(intent);
         activity.finish();
     }

@@ -2,6 +2,7 @@ package com.app.mypresence.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -36,5 +37,12 @@ public class LoginModel extends Model implements LoginModelInterface {
         editor.apply();
 
         Log.e("login auto ", String.valueOf(this.sharedPref.getBoolean("loggedIn", false)));
+    }
+
+    @Override
+    public Bundle getUserInfo() {
+        Bundle userBundle = new Bundle();
+        //userBundle.putString(              );
+        return userBundle;
     }
 }

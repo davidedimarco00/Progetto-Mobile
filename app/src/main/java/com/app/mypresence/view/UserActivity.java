@@ -32,7 +32,7 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         this.presenter.hideActionBar();
         this.bottomNavigationView =  (BottomNavigationView) findViewById(R.id.bottomNavigationView);
-
+        this.bottomNavigationView.setSelectedItemId(R.id.btn_profile);
         if (savedInstanceState == null) {
             if (true) { //QUI È DA VERIFICARE SE L'ACCESSO È STATO FATTO CON ADMIN O USER
                 this.presenter.showUserFragment(UserFragment.class);
@@ -46,13 +46,13 @@ public class UserActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btn_statics:
-                        presenter.showStatisticFragment();
+                        presenter.showStatisticFragment(StatisticsFragment.class);
                         break;
                     case R.id.btn_profile:
                         presenter.showUserFragment(UserFragment.class);
                         break;
                     case R.id.btn_settings:
-                        presenter.showSettingsFragment();
+                        presenter.showSettingsFragment(SettingsFragment.class);
                         break;
                 }
                 return true;
