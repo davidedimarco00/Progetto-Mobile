@@ -8,14 +8,18 @@ import android.util.Log;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.app.mypresence.model.database.MyPresenceViewModel;
+import com.app.mypresence.model.database.user.User;
 import com.app.mypresence.presenter.LoginPresenterInterface;
 import com.app.mypresence.presenter.Presenter;
+
+import java.util.List;
 
 public class LoginModel extends Model implements LoginModelInterface {
 
     private LoginPresenterInterface presenter;
     private SharedPreferences sharedPref;
     private MyPresenceViewModel myPresenceViewModel;
+    private User loggedUser ;
 
     public LoginModel(Presenter presenter){
         Log.e ("presenter", presenter.toString());
@@ -27,7 +31,9 @@ public class LoginModel extends Model implements LoginModelInterface {
 
     @Override
     public boolean login(String password, String username) {
-        return !this.myPresenceViewModel.getUserFromUsernameAndPassword(username, password).isEmpty();
+        List<User> usersList = this.myPresenceViewModel.getUserFromUsernameAndPassword(username, password);
+        this.loggedUser = usersList.isEmpty() ? null : usersList.get(0);
+        return this.loggedUser != null;
     }
 
     @Override
@@ -42,7 +48,13 @@ public class LoginModel extends Model implements LoginModelInterface {
     @Override
     public Bundle getUserInfo() {
         Bundle userBundle = new Bundle();
-        //userBundle.putString(              );
+        if (this.loggedUser != null) {
+            userBundle.putString("name", this.loggedUser.getName());
+            userBundle.putString("surname", this.loggedUser.getSurname());
+            userBundle.putString("image", this.loggedUser.getProfile_image()); //directory a image
+            userBundle.putInt("userId", this.loggedUser.getUserId());
+            userBundle.putBoolean("isAdmin", this.loggedUser.isAdmin());
+        }
         return userBundle;
     }
 }

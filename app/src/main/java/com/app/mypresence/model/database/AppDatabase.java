@@ -6,15 +6,22 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.airbnb.lottie.utils.Utils;
 import com.app.mypresence.model.database.user.User;
 import com.app.mypresence.model.database.user.UserDAO;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, DateInfo.class}, version = 5)
+@Database(entities = {User.class, DateInfo.class}, version = 9)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UserDAO userDAO();
@@ -29,32 +36,36 @@ public abstract class AppDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     INSTANCE = Room
                             .databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database")
-                            .addCallback(sRoomDatabasePopulatorCallback)
+                            .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build();
+                    prepopulateDB();
                 }
             }
         }
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabasePopulatorCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            // If you want to keep data through app restarts,
-            // comment out the following block
-            executor.execute(() -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
-                UserDAO uDao = INSTANCE.userDAO();
+    private static void prepopulateDB(){
+        executor.execute(() -> {
+            UserDAO uDao = INSTANCE.userDAO();
 
-                uDao.deleteAll();
+            uDao.deleteAll();
 
-                User user = new User("Davide", "Di Marco", "dima", "dima1", "./");
-                uDao.addUser(user);
-            });
-        }
-    };
+            User user = new User("Davide", "Di Marco", "dima", "dima1", "./", false);
+            uDao.addUser(user);
+
+            Calendar c1 = Calendar.getInstance();
+            c1.set(Calendar.MONTH, 4);
+            c1.set(Calendar.DATE, 11);
+            c1.set(Calendar.YEAR, 2022);
+
+            DateInfo dateInfo = new DateInfo("active", c1.getTime(), 6);
+            dateInfo.userOwnerOfStat = user.getUserId();
+
+            uDao.addDateInfo(dateInfo);
+        });
+
+    }
 
 }

@@ -21,13 +21,16 @@ public class User {
     private String password;
     @ColumnInfo(name = "profile_image")
     private String profile_image;
+    @ColumnInfo(name = "isAdmin")
+    private boolean isAdmin;
 
-    public User(final String name, final String surname, final String username, final String password, final String profile_image) {
+    public User(final String name, final String surname, final String username, final String password, final String profile_image, final boolean isAdmin) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = password;
         this.profile_image = profile_image;
+        this.isAdmin = isAdmin;
     }
 
     public int getUserId() {return this.userId;}
@@ -65,4 +68,8 @@ public class User {
     public void setProfile_image(String profile_image) {
         this.profile_image = profile_image;
     }
+
+    public boolean isAdmin() {return isAdmin;}
+
+    public void setAdmin(boolean admin) {isAdmin = admin;}
 }

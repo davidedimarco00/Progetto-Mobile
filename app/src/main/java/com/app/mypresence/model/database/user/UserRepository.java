@@ -19,6 +19,7 @@ public class UserRepository {
 
     public UserRepository(Application application){
         AppDatabase db = AppDatabase.getDatabase(application);
+
         this.userDAO = db.userDAO();
 
         this.allUsers = this.userDAO.getAllUsers();

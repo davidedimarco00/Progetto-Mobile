@@ -3,6 +3,7 @@ package com.app.mypresence.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -33,9 +34,12 @@ public class UserActivity extends AppCompatActivity {
         this.presenter.hideActionBar();
         this.bottomNavigationView =  (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         this.bottomNavigationView.setSelectedItemId(R.id.btn_profile);
-        
+
+        /**TODO*/
+        Intent intent = getIntent();
+        boolean isAdmin = intent.getBundleExtra("userInfo").getBoolean("isAdmin");
         if (savedInstanceState == null) {
-            if (true) { //QUI È DA VERIFICARE SE L'ACCESSO È STATO FATTO CON ADMIN O USER
+            if (!isAdmin) {
                 this.presenter.showUserFragment(UserFragment.class);
             } else {
                 this.presenter.showAdminFragment(AdminFragment.class);
