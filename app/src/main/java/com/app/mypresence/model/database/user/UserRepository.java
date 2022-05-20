@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.app.mypresence.model.database.AppDatabase;
+import com.app.mypresence.model.database.DateInfo;
 import com.app.mypresence.model.database.UserAndStats;
 
 import java.util.List;
@@ -34,6 +35,10 @@ public class UserRepository {
 
     public void addUser(final User user){
         AppDatabase.executor.execute(() -> this.userDAO.addUser(user));
+    }
+
+    public void addStats(final DateInfo dateInfo){
+        AppDatabase.executor.execute(() -> this.userDAO.addDateInfo(dateInfo));
     }
 
     public List<User> getUserFromUsernameAndPassword(String username, String password){

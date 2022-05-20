@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.app.mypresence.model.database.DateInfo;
 import com.app.mypresence.model.database.UserAndStats;
 
 import java.util.List;
@@ -32,5 +33,13 @@ public interface UserDAO {
     @Transaction
     @Query("SELECT * FROM user WHERE username=:username AND password=:password")
     List<User> checkIfUsernameAndPasswordAreCorrect(String username, String password);
+
+    @Insert
+    void addDateInfo(DateInfo userDateInfo);
+
+    //Get stats from a user on a specific day
+    @Transaction
+    @Query("SELECT * FROM user, dateinfo WHERE user.username=:username AND user.password=:password AND dateInfo.date=:date")
+    List<UserAndStats> getUserStatsOnGivenDay(final String username, final String password, final Long date);
 
 }
