@@ -20,6 +20,9 @@ public class DateInfo {
     @ColumnInfo(name = "date")
     private Long date;
 
+    @ColumnInfo(name = "workedHours")
+    private int workedHours;
+
     public int userOwnerOfStat;
 
     public DateInfo(final String status, final Long date){
@@ -48,5 +51,9 @@ public class DateInfo {
     public void setDate(Long date) {
         this.date = date;
     }
+
+    public int getWorkedHours() {return workedHours;}
+
+    public void setWorkedHours(int workedHours) {this.workedHours = workedHours;}
 
 }
