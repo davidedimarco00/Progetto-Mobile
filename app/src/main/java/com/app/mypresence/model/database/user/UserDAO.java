@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import com.app.mypresence.model.database.DateInfo;
 import com.app.mypresence.model.database.UserAndStats;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -40,6 +41,6 @@ public interface UserDAO {
     //Get stats from a user on a specific day
     @Transaction
     @Query("SELECT * FROM user, dateinfo WHERE user.username=:username AND user.password=:password AND dateInfo.date=:date")
-    List<UserAndStats> getUserStatsOnGivenDay(final String username, final String password, final Long date);
+    List<UserAndStats> getUserStatsOnGivenDay(final String username, final String password, final Date date);
 
 }

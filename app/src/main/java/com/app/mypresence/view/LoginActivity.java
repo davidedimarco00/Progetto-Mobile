@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.presenter  = new LoginPresenter(this);
+
         presenter.hideActionBar();
         loginButton = (AppCompatButton) findViewById(R.id.btnLogin);
         checkBox = (CheckBox) findViewById(R.id.checkBox);

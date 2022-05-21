@@ -37,11 +37,9 @@ public class UserActivity extends AppCompatActivity {
 
         /**TODO*/
         Intent intent = getIntent();
-        System.out.println(intent.getBundleExtra("userInfo").get("name").toString());
-
-
+        boolean isAdmin = intent.getBundleExtra("userInfo").getBoolean("isAdmin");
         if (savedInstanceState == null) {
-            if (true) { //QUI È DA VERIFICARE SE L'ACCESSO È STATO FATTO CON ADMIN O USER
+            if (!isAdmin) {
                 this.presenter.showUserFragment(UserFragment.class);
             } else {
                 this.presenter.showAdminFragment(AdminFragment.class);

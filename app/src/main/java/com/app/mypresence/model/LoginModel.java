@@ -53,6 +53,7 @@ public class LoginModel extends Model implements LoginModelInterface {
             userBundle.putString("surname", this.loggedUser.getSurname());
             userBundle.putString("image", this.loggedUser.getProfile_image()); //directory a image
             userBundle.putInt("userId", this.loggedUser.getUserId());
+            userBundle.putBoolean("isAdmin", this.loggedUser.isAdmin());
         }
         return userBundle;
     }

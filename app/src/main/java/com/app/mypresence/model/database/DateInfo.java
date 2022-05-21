@@ -18,24 +18,25 @@ public class DateInfo {
     @ColumnInfo(name = "status")
     private String status;
     @ColumnInfo(name = "date")
-    private Long date;
+    private Date date;
+    @ColumnInfo(name = "workedHours")
+    private int workedHours;
 
     public int userOwnerOfStat;
 
-    public DateInfo(final String status, final Long date){
+    public DateInfo(final String status, final Date date, final int workedHours){
         this.status = status;
         this.date = date;
+        this.workedHours = workedHours;
     }
 
     public int getDateInfoId() {
         return dateInfoId;
     }
 
-    public String getStatus() {
-        return status;
-    }
+    public String getStatus() { return status; }
 
-    public Long getDate() {return this.date;}
+    public Date getDate() { return this.date; }
 
     public void setDateInfoId(int dateInfoId) {
         this.dateInfoId = dateInfoId;
@@ -45,8 +46,12 @@ public class DateInfo {
         this.status = status;
     }
 
-    public void setDate(Long date) {
+    public void setDate(Date date) {
         this.date = date;
     }
+
+    public int getWorkedHours() {return workedHours;}
+
+    public void setWorkedHours(int workedHours) {this.workedHours = workedHours;}
 
 }
