@@ -5,15 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.app.mypresence.R;
-import com.app.mypresence.presenter.Presenter;
-import com.app.mypresence.presenter.SplashPresenterInterface;
 import com.app.mypresence.presenter.UserActivityPresenter;
 import com.app.mypresence.presenter.UserActivityPresenterInterface;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -26,6 +23,11 @@ public class UserActivity extends AppCompatActivity {
 
     private final UserActivityPresenterInterface presenter  = new UserActivityPresenter(this);
     private BottomNavigationView bottomNavigationView;
+    UserFragment userFragment = new UserFragment();
+    StatisticsFragment statisticsFragment = new StatisticsFragment();
+    SettingsFragment settingsFragment = new SettingsFragment() ;
+    AdminFragment adminFragment = new AdminFragment();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +42,13 @@ public class UserActivity extends AppCompatActivity {
         boolean isAdmin = intent.getBundleExtra("userInfo").getBoolean("isAdmin");
         if (savedInstanceState == null) {
             if (!isAdmin) {
-                this.presenter.showUserFragment(UserFragment.class);
+                Log.e("bundle", intent.getExtras().toString());
+
+                userFragment.setArguments(intent.getExtras());
+
+                this.presenter.showUserFragment(userFragment);
             } else {
-                this.presenter.showAdminFragment(AdminFragment.class);
+                this.presenter.showAdminFragment(adminFragment);
             }
         }
 
@@ -51,13 +57,13 @@ public class UserActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btn_statics:
-                        presenter.showStatisticFragment(StatisticsFragment.class);
+                        presenter.showStatisticFragment(statisticsFragment);
                         break;
                     case R.id.btn_profile:
-                        presenter.showUserFragment(UserFragment.class);
+                        presenter.showUserFragment(userFragment);
                         break;
                     case R.id.btn_settings:
-                        presenter.showSettingsFragment(SettingsFragment.class);
+                        presenter.showSettingsFragment(settingsFragment);
                         break;
                 }
                 return true;

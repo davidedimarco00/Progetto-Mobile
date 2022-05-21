@@ -1,14 +1,27 @@
 package com.app.mypresence.view;
 
+import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.mypresence.R;
+
+import org.w3c.dom.Text;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,9 +39,21 @@ public class UserFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+    /**/
+
+    private TextView txtUsername;
+    private CircleImageView imgProfile;
+    private AppCompatButton btnStartTurn;
+
+    private CalendarView calendarView;
+    private Bundle bundle;
+
+
     public UserFragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -59,8 +84,42 @@ public class UserFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+        Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_user, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        if (container != null){
+            this.txtUsername = view.findViewById(R.id.txtUsername);
+            this.imgProfile = view.findViewById(R.id.imgProfile);
+            this.btnStartTurn = view.findViewById(R.id.btnStartTurn);
+        }
+
+        if (getArguments() != null){
+            this.bundle = this.getArguments().getBundle("userInfo");
+
+            String name = this.bundle.getString("name");
+            String surname = this.bundle.getString("surname");
+
+            this.txtUsername.setText(name + " " + surname);
+            int id = getResources().getIdentifier((name + surname)
+                                   .toLowerCase()
+                                   .replace(" ",""), "drawable", this.getActivity().getPackageName());
+            this.imgProfile.setImageResource(id);
+        }
+        this.btnStartTurn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                final View customLayout = getLayoutInflater().inflate(R.layout.custom_dialog, null);
+                builder.setView(customLayout);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+   
+
+        return view;
     }
+
+
 }
