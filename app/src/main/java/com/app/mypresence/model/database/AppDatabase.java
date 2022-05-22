@@ -53,7 +53,11 @@ public abstract class AppDatabase extends RoomDatabase {
             uDao.deleteAll();
 
             User user = new User("Davide", "Di Marco", "dima", "dima1", "./", false);
+            User user2 = new User("Stefano", "Scolari", "scola", "scola1", "./", false);
+            User user3 = new User("Gianmarco", "Rosellini Maria Franco", "gian", "gian1", "./", false);
             uDao.addUser(user);
+            uDao.addUser(user2);
+            uDao.addUser(user3);
 
             Calendar c1 = Calendar.getInstance();
             c1.set(Calendar.MONTH, 4);

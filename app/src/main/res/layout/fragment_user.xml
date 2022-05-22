@@ -46,7 +46,8 @@
             app:layout_constraintLeft_toRightOf="@+id/imageCard"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="205dp"
-
+            android:singleLine="false"
+            android:maxEms="12"
             android:textColor="@color/white"
             android:layout_marginLeft="10dp"
             android:textSize="22dp"
