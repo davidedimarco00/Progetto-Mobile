@@ -5,11 +5,9 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.app.mypresence.model.Model;
 import com.app.mypresence.model.SplashScreenModel;
 import com.app.mypresence.model.SplashScreenModelInterface;
 import com.app.mypresence.view.LoginActivity;
-import com.app.mypresence.view.SplashScreen;
 import com.app.mypresence.view.UserActivity;
 
 public class SplashPresenter extends Presenter implements SplashPresenterInterface {
@@ -68,5 +66,10 @@ public class SplashPresenter extends Presenter implements SplashPresenterInterfa
     @Override
     public boolean checkForAutomaticLogin() {
         return this.model.checkSavedLoginData();
+    }
+
+    @Override
+    public boolean checkForFirstLaunch() {
+        return this.model.checkFirstLaunch();
     }
 }

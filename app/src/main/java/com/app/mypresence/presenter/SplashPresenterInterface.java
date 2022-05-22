@@ -15,4 +15,6 @@ public interface SplashPresenterInterface extends PresenterInterface {
     boolean checkForAutomaticLogin();
 
     void startUserActivity(Handler handler);
+
+    boolean checkForFirstLaunch();
 }

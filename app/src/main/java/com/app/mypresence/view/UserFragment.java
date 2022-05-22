@@ -1,6 +1,8 @@
 package com.app.mypresence.view;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -101,6 +104,7 @@ public class UserFragment extends Fragment {
             String surname = this.bundle.getString("surname");
 
             this.txtUsername.setText(name + " " + surname);
+
             int id = getResources().getIdentifier((name + surname)
                                    .toLowerCase()
                                    .replace(" ",""), "drawable", this.getActivity().getPackageName());
@@ -109,14 +113,11 @@ public class UserFragment extends Fragment {
         this.btnStartTurn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                final View customLayout = getLayoutInflater().inflate(R.layout.custom_dialog, null);
-                builder.setView(customLayout);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                Intent intent = new Intent(getActivity().getBaseContext(), NFCActivity.class);
+                startActivity(intent);
             }
         });
-   
+
 
         return view;
     }

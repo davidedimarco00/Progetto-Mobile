@@ -19,12 +19,12 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         presenter.hideActionBar();
-            if (!presenter.checkForAutomaticLogin()) {
-                presenter.startLoginActivity(LoginActivity.class, handler);
-            } else {
-                presenter.startLoginActivity(LoginActivity.class, handler);
-                //presenter.startUserActivity(handler); faccio così per testare il db e login
-            }
+        if (!presenter.checkForAutomaticLogin()) {
+            presenter.startLoginActivity(LoginActivity.class, handler);
+        } else {
+            presenter.startLoginActivity(LoginActivity.class, handler);
+            //presenter.startUserActivity(handler); faccio così per testare il db e login
+        }
     }
 
     @Override
