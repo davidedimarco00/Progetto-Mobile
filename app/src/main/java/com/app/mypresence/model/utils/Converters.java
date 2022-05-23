@@ -2,6 +2,7 @@ package com.app.mypresence.model.utils;
 
 import androidx.room.TypeConverter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Converters {
@@ -14,4 +15,5 @@ public class Converters {
     public static Long dateToTimestamp(Date date) {
         return date == null ? null : date.getTime();
     }
+
 }

@@ -46,4 +46,12 @@ public class UserRepository {
         return this.userDAO.checkIfUsernameAndPasswordAreCorrect(username, password);
     }
 
+    public List<UserAndStats> getUserStats(final String username, final String password){
+        return this.userDAO.getUserStats(username, password);
+    }
+
+    public String getMatrice(final String username, final String password){
+        return this.userDAO.getMatrice(username, password);
+    }
+
 }

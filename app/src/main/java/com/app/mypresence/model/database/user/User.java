@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.app.mypresence.model.utils.SHA1;
+
 @Entity
 public class User {
 
@@ -23,6 +25,8 @@ public class User {
     private String profile_image;
     @ColumnInfo(name = "isAdmin")
     private boolean isAdmin;
+    @ColumnInfo(name = "matrice")
+    private String matrice;
 
     public User(final String name, final String surname, final String username, final String password, final String profile_image, final boolean isAdmin) {
         this.name = name;
@@ -31,6 +35,7 @@ public class User {
         this.password = password;
         this.profile_image = profile_image;
         this.isAdmin = isAdmin;
+        this.matrice = SHA1.SHA1(this.username);
     }
 
     public int getUserId() {return this.userId;}
@@ -72,4 +77,12 @@ public class User {
     public boolean isAdmin() {return isAdmin;}
 
     public void setAdmin(boolean admin) {isAdmin = admin;}
+
+    public String getMatrice() {
+        return matrice;
+    }
+
+    public void setMatrice(String matrice) {
+        this.matrice = matrice;
+    }
 }

@@ -1,6 +1,7 @@
 package com.app.mypresence.model.database;
 
 import android.content.Context;
+import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -13,14 +14,29 @@ import com.airbnb.lottie.utils.Utils;
 import com.app.mypresence.model.database.user.User;
 import com.app.mypresence.model.database.user.UserDAO;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Hours;
+import org.joda.time.Interval;
+import org.joda.time.Minutes;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-@Database(entities = {User.class, DateInfo.class}, version = 9)
+@Database(entities = {User.class, DateInfo.class}, version = 15)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -39,37 +55,100 @@ public abstract class AppDatabase extends RoomDatabase {
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build();
-                    prepopulateDB();
+                    prepopulateDBwithUsers();
                 }
             }
         }
         return INSTANCE;
     }
 
-    private static void prepopulateDB(){
+    private static void prepopulateDBwithUsers(){
         executor.execute(() -> {
             UserDAO uDao = INSTANCE.userDAO();
-
             uDao.deleteAll();
-
             User user = new User("Davide", "Di Marco", "dima", "dima1", "./", false);
             User user2 = new User("Stefano", "Scolari", "scola", "scola1", "./", false);
             User user3 = new User("Gianmarco", "Rosellini Maria Franco", "gian", "gian1", "./", false);
             uDao.addUser(user);
             uDao.addUser(user2);
             uDao.addUser(user3);
-
-            Calendar c1 = Calendar.getInstance();
-            c1.set(Calendar.MONTH, 4);
-            c1.set(Calendar.DATE, 11);
-            c1.set(Calendar.YEAR, 2022);
-
-            DateInfo dateInfo = new DateInfo("active", c1.getTime(), 6);
-            dateInfo.userOwnerOfStat = user.getUserId();
-
-            uDao.addDateInfo(dateInfo);
         });
 
     }
 
+    static class CalendarBuilder{
+        private Calendar c = Calendar.getInstance();
+
+        CalendarBuilder month(final int month){
+            c.set(Calendar.MONTH, month);
+            return this;
+        }
+
+        CalendarBuilder day(final int day){
+            c.set(Calendar.DATE, day);
+            return this;
+        }
+
+        CalendarBuilder year(final int year){
+            c.set(Calendar.YEAR, year);
+            return this;
+        }
+
+        Date buildDate(){
+            return c.getTime();
+        }
+    }
+
+    private static Pair<String,String> randomWorkShiftGenerator(int minimumTime, int maximumTime){
+
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
+
+        Hours startHours = Hours.hours(ThreadLocalRandom.current().nextInt(minimumTime, 9));
+        Minutes startMinutes = Minutes.minutes(ThreadLocalRandom.current().nextInt(10, 59 + 1));
+
+        Hours endHours = Hours.hours(ThreadLocalRandom.current().nextInt(12, maximumTime + 1));
+        Minutes endMinutes = Minutes.minutes(ThreadLocalRandom.current().nextInt(10, 59 + 1));
+
+        String startShift = "0" + String.valueOf(startHours.getHours()) + ":" + String.valueOf(startMinutes.getMinutes());
+        String endShift = String.valueOf(endHours.getHours()) + ":" + String.valueOf(endMinutes.getMinutes());
+
+        return new Pair<>(startShift,endShift);
+
+    }
+
+    private static List<DateInfo> generateDatesForMonth(int startDay, int endDay, int month, int year){
+        CalendarBuilder calendarBuilder = new CalendarBuilder();
+
+        List<Pair<Date,Pair<String, String>>> datesForMonth = new ArrayList<>();
+
+        for(int i=startDay; i<endDay; i++){
+            datesForMonth.add(new Pair<>(calendarBuilder.day(i).month(month).year(year).buildDate(), randomWorkShiftGenerator(7, 21)));
+        }
+        List<DateInfo> datesToAdd = new ArrayList<>();
+
+        for(Pair<Date,Pair<String, String>> stamp:datesForMonth){
+            datesToAdd.add(new DateInfo("active", stamp.first, stamp.second.first, stamp.second.second));
+        }
+
+        return datesToAdd;
+    }
+
+    public static void prepopulateDBwithDateInfo(){
+        executor.execute(() -> {
+            UserDAO uDao = AppDatabase.INSTANCE.userDAO();
+            List<DateInfo> dates = generateDatesForMonth(1, 30, 4, 2022);
+
+            int user1ID = uDao.checkIfUsernameAndPasswordAreCorrect("scola", "scola1").get(0).getUserId();
+
+            for(DateInfo date:dates){
+                date.userOwnerOfStat = user1ID;
+                uDao.addDateInfo(date);
+            }
+
+        });
+    }
+
+    public static String getMyPresNFCcode(){
+        return "8a7fce4857";
+    }
 }

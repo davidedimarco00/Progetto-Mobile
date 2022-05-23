@@ -24,7 +24,7 @@ public class UserActivity extends AppCompatActivity {
     private final UserActivityPresenterInterface presenter  = new UserActivityPresenter(this);
     private BottomNavigationView bottomNavigationView;
     UserFragment userFragment = new UserFragment();
-    StatisticsFragment statisticsFragment = new StatisticsFragment();
+    StatisticsFragment statisticsFragment;
     SettingsFragment settingsFragment = new SettingsFragment() ;
     AdminFragment adminFragment = new AdminFragment();
 
@@ -36,7 +36,11 @@ public class UserActivity extends AppCompatActivity {
         this.presenter.hideActionBar();
         this.bottomNavigationView =  (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         this.bottomNavigationView.setSelectedItemId(R.id.btn_profile);
+        Bundle infoUser = getIntent().getBundleExtra("userInfo");
+        String username = infoUser.getString("username");
+        String password = infoUser.getString("password");
 
+        this.statisticsFragment = StatisticsFragment.newInstance(username, password);
         /**TODO*/
         Intent intent = getIntent();
         boolean isAdmin = intent.getBundleExtra("userInfo").getBoolean("isAdmin");

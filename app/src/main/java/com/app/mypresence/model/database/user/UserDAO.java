@@ -43,4 +43,12 @@ public interface UserDAO {
     @Query("SELECT * FROM user, dateinfo WHERE user.username=:username AND user.password=:password AND dateInfo.date=:date")
     List<UserAndStats> getUserStatsOnGivenDay(final String username, final String password, final Date date);
 
+    @Transaction
+    @Query("SELECT * FROM user, dateinfo WHERE user.username=:username AND user.password=:password")
+    List<UserAndStats> getUserStats(final String username, final String password);
+
+    @Transaction
+    @Query("SELECT matrice FROM user WHERE user.username=:username AND user.password=:password LIMIT 1")
+    String getMatrice(final String username,final String password);
+
 }

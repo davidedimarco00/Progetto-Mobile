@@ -1,5 +1,6 @@
 package com.app.mypresence.view;
 import com.app.mypresence.R;
+import com.app.mypresence.model.database.AppDatabase;
 import com.app.mypresence.model.database.MyPresenceViewModel;
 import com.app.mypresence.presenter.LoginPresenter;
 import com.app.mypresence.presenter.LoginPresenterInterface;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(this, "Wrong credentials", Toast.LENGTH_SHORT).show();
                     }
+                AppDatabase.prepopulateDBwithDateInfo();
             };
 
             loginThread.run();

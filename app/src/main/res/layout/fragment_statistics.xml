@@ -1,14 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.StatisticsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/button_max_worked_hours"
+            android:layout_width="179dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="77dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/purple_border_rounded_cornwe"
+            android:clickable="false"
+            android:text="Button"
+            android:textColor="@color/purple_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_min_worked_hours"
+            android:layout_width="179dp"
+            android:layout_height="102dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="305dp"
+            android:background="@drawable/purple_border_rounded_cornwe"
+            android:clickable="false"
+            android:text="Button"
+            android:textColor="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_day_arrived_earlier"
+            android:layout_width="179dp"
+            android:layout_height="102dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/purple_border_rounded_cornwe"
+            android:clickable="false"
+            android:textColor="@color/purple_500"
+            android:text="Button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_total_hours_worked_current_month" />
+
+        <Button
+            android:id="@+id/button_day_arrived_later"
+            android:layout_width="179dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/purple_border_rounded_cornwe"
+            android:clickable="false"
+            android:textColor="@color/purple_500"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_max_worked_hours" />
+
+        <Button
+            android:id="@+id/button_average_hours_worked"
+            android:layout_width="179dp"
+            android:layout_height="102dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="305dp"
+            android:background="@drawable/purple_border_rounded_cornwe"
+            android:clickable="false"
+            android:textColor="@color/purple_500"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/button_total_hours_worked_current_month"
+            android:layout_width="179dp"
+            android:layout_height="102dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="77dp"
+            android:background="@drawable/purple_border_rounded_cornwe"
+            android:clickable="false"
+            android:textColor="@color/purple_500"
+            android:text="Button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

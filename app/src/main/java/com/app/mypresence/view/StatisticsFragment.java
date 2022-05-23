@@ -1,14 +1,27 @@
 package com.app.mypresence.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.app.mypresence.R;
+import com.app.mypresence.model.StatisticsContainer;
+import com.app.mypresence.model.database.DateInfo;
+import com.app.mypresence.model.database.MyPresenceViewModel;
+import com.app.mypresence.model.database.UserAndStats;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,15 +32,15 @@ public class StatisticsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "username";
+    private static final String ARG_PARAM2 = "password";
+    private RecyclerView recyclerView;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String username;
+    private String password;
 
     public StatisticsFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -52,8 +65,8 @@ public class StatisticsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            this.username = getArguments().getString(ARG_PARAM1);
+            this.password = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -63,4 +76,39 @@ public class StatisticsFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_statistics, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.setView(getActivity());
+    }
+
+    private void setView(final Activity activity){
+        Button btn_average_hours = getView().findViewById(R.id.button_average_hours_worked);
+        Button btn_day_earlier = getView().findViewById(R.id.button_day_arrived_earlier);
+        Button btn_day_later = getView().findViewById(R.id.button_day_arrived_later);
+        Button btn_max_worked_hours = getView().findViewById(R.id.button_max_worked_hours);
+        Button btn_min_worked_hours = getView().findViewById(R.id.button_min_worked_hours);
+        Button btn_total_hours_current_month = getView().findViewById(R.id.button_total_hours_worked_current_month);
+
+        MyPresenceViewModel mpvm = new MyPresenceViewModel(this.getActivity().getApplication());
+
+        Runnable loginThread = () -> {
+            List<UserAndStats> userAndStats = mpvm.getUserStats(username, password);
+            String text = this.infoBuilder(userAndStats.get(0).user.getName(), userAndStats.get(0).stats.get(0));
+        };
+
+        loginThread.run();
+
+    }
+
+    private String infoBuilder(String name, DateInfo dateInfo){
+        return name +
+                " today " +
+                dateInfo.getDate().toString() +
+                " worked " +
+                dateInfo.getWorkedHours() +
+                " hours";
+    }
+
 }
