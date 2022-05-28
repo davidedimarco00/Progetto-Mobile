@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Database(entities = {User.class, DateInfo.class}, version = 15)
+@Database(entities = {User.class, DateInfo.class}, version = 16)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -66,12 +66,10 @@ public abstract class AppDatabase extends RoomDatabase {
         executor.execute(() -> {
             UserDAO uDao = INSTANCE.userDAO();
             uDao.deleteAll();
-            User user = new User("Davide", "Di Marco", "dima", "dima1", "./", false);
-            User user2 = new User("Stefano", "Scolari", "scola", "scola1", "./", false);
-            User user3 = new User("Gianmarco", "Rosellini Maria Franco", "gian", "gian1", "./", false);
+            User user = new User("Davide", "Di Marco", "dima", "Mi chiamo Davide Di Marco","dima1","./", false, "Project Manager Associate");
+            User user2 = new User("Stefano", "Scolari", "scola", "Mi chiamo Stefano Scolari","scola1","./", false, "Software Engineer");
             uDao.addUser(user);
             uDao.addUser(user2);
-            uDao.addUser(user3);
         });
 
     }
