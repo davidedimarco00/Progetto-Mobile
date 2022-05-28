@@ -1,6 +1,8 @@
 package com.app.mypresence.view;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.mypresence.R;
@@ -22,6 +25,7 @@ import com.app.mypresence.model.database.UserAndStats;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +78,7 @@ public class StatisticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_statistics, container, false);
     }
 
@@ -84,12 +89,7 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void setView(final Activity activity){
-        Button btn_average_hours = getView().findViewById(R.id.button_average_hours_worked);
-        Button btn_day_earlier = getView().findViewById(R.id.button_day_arrived_earlier);
-        Button btn_day_later = getView().findViewById(R.id.button_day_arrived_later);
-        Button btn_max_worked_hours = getView().findViewById(R.id.button_max_worked_hours);
-        Button btn_min_worked_hours = getView().findViewById(R.id.button_min_worked_hours);
-        Button btn_total_hours_current_month = getView().findViewById(R.id.button_total_hours_worked_current_month);
+
 
         MyPresenceViewModel mpvm = new MyPresenceViewModel(this.getActivity().getApplication());
 

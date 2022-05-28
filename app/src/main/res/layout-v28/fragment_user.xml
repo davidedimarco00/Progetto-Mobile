@@ -60,6 +60,7 @@
         app:layout_constraintLeft_toRightOf="@+id/imageCard"
         android:singleLine="false"
         android:maxEms="12"
+        android:text="Developer"
         android:textColor="@color/white"
         android:layout_marginLeft="10dp"
         android:textSize="14dp"
@@ -78,21 +79,6 @@
         app:layout_constraintTop_toTopOf="@id/txtRole"
         app:layout_constraintBottom_toBottomOf="@id/txtRole"/>
 
-    <TextView
-        android:id="@+id/txtBio1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:fontFamily="@font/poppins_regular"
-        android:maxEms="12"
-        android:singleLine="false"
-        android:textColor="@color/black"
-        android:textSize="14dp"
-        android:text="ccc"
-        app:layout_constraintLeft_toRightOf="@id/imageCard"
-        app:layout_constraintTop_toBottomOf="@id/imageCard"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,9 +89,8 @@
         android:gravity="center"
         android:layout_marginTop="50dp"
         android:clipToPadding="false"
-        android:clipChildren="false">
-
-
+        android:clipChildren="false"
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btnLoadDoc"
@@ -144,31 +129,15 @@
             android:elevation="80dp"
             android:textColor="@color/purple_500"
             card_view:cardElevation="10dp"
-            card_view:cardPreventCornerOverlap="false">
+            card_view:cardPreventCornerOverlap="false"
+            android:outlineAmbientShadowColor="@color/purple_500">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_gravity="center"
-                >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-
-                    android:src="@drawable/itinerario_icon"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Go to work"
-                    android:layout_gravity="center"/>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-
+                android:src="@drawable/itinerario_icon"/>
 
 
         </androidx.cardview.widget.CardView>
@@ -196,7 +165,7 @@
             android:layout_weight="0.5"
             android:background="@drawable/purple_border_rounded_cornwe"
             android:clickable="true"
-            android:elevation="80dp"
+            android:elevation="40dp"
             android:focusable="true"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/start_you_turn"

@@ -1,92 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.StatisticsFragment">
+    tools:context=".view.StatisticsFragment"
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
-        <Button
-            android:id="@+id/button_max_worked_hours"
-            android:layout_width="179dp"
-            android:layout_height="102dp"
-            android:layout_marginTop="77dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/purple_border_rounded_cornwe"
-            android:clickable="false"
-            android:text="Button"
+        <TableRow>
+            <androidx.cardview.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_weight="0.5"
+            card_view:cardCornerRadius="11dp"
+            android:layout_margin="10dp"
+            android:elevation="80dp"
             android:textColor="@color/purple_500"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            card_view:cardElevation="10dp"
+            card_view:cardPreventCornerOverlap="false">
 
-        <Button
-            android:id="@+id/button_min_worked_hours"
-            android:layout_width="179dp"
-            android:layout_height="102dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="305dp"
-            android:background="@drawable/purple_border_rounded_cornwe"
-            android:clickable="false"
-            android:text="Button"
-            android:textColor="@color/purple_500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
 
-        <Button
-            android:id="@+id/button_day_arrived_earlier"
-            android:layout_width="179dp"
-            android:layout_height="102dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/purple_border_rounded_cornwe"
-            android:clickable="false"
-            android:textColor="@color/purple_500"
-            android:text="Button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_total_hours_worked_current_month" />
+                android:src="@drawable/documents_icon"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_weight="0.5"
+                card_view:cardCornerRadius="11dp"
+                android:layout_margin="10dp"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                card_view:cardElevation="10dp"
+                card_view:cardPreventCornerOverlap="false">
 
-        <Button
-            android:id="@+id/button_day_arrived_later"
-            android:layout_width="179dp"
-            android:layout_height="102dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/purple_border_rounded_cornwe"
-            android:clickable="false"
-            android:textColor="@color/purple_500"
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_max_worked_hours" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
 
-        <Button
-            android:id="@+id/button_average_hours_worked"
-            android:layout_width="179dp"
-            android:layout_height="102dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="305dp"
-            android:background="@drawable/purple_border_rounded_cornwe"
-            android:clickable="false"
-            android:textColor="@color/purple_500"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+                    android:src="@drawable/documents_icon"/>
+            </androidx.cardview.widget.CardView>
+        </TableRow>
 
-        <Button
-            android:id="@+id/button_total_hours_worked_current_month"
-            android:layout_width="179dp"
-            android:layout_height="102dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="77dp"
-            android:background="@drawable/purple_border_rounded_cornwe"
-            android:clickable="false"
-            android:textColor="@color/purple_500"
-            android:text="Button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <TableRow>
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_weight="0.5"
+                card_view:cardCornerRadius="11dp"
+                android:layout_margin="10dp"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                card_view:cardElevation="10dp"
+                card_view:cardPreventCornerOverlap="false">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:src="@drawable/documents_icon"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_weight="0.5"
+                card_view:cardCornerRadius="11dp"
+                android:layout_margin="10dp"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                card_view:cardElevation="10dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:src="@drawable/documents_icon"/>
+            </androidx.cardview.widget.CardView>
+        </TableRow>
+
+        <TableRow>
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_weight="0.5"
+                card_view:cardCornerRadius="11dp"
+                android:layout_margin="10dp"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                card_view:cardElevation="10dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:src="@drawable/documents_icon"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnLoadDoc"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_weight="0.5"
+                card_view:cardCornerRadius="11dp"
+                android:layout_margin="10dp"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                card_view:cardElevation="10dp"
+                card_view:cardPreventCornerOverlap="false">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:src="@drawable/documents_icon"/>
+            </androidx.cardview.widget.CardView>
+        </TableRow>
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </TableLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

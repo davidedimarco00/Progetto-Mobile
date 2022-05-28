@@ -1,6 +1,7 @@
 package com.app.mypresence.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -40,16 +41,15 @@ public class UserActivity extends AppCompatActivity {
         String username = infoUser.getString("username");
         String password = infoUser.getString("password");
 
+
         this.statisticsFragment = StatisticsFragment.newInstance(username, password);
-        /**TODO*/
+        /*TODO*/
         Intent intent = getIntent();
         boolean isAdmin = intent.getBundleExtra("userInfo").getBoolean("isAdmin");
         if (savedInstanceState == null) {
             if (!isAdmin) {
                 Log.e("bundle", intent.getExtras().toString());
-
                 userFragment.setArguments(intent.getExtras());
-
                 this.presenter.showUserFragment(userFragment);
             } else {
                 this.presenter.showAdminFragment(adminFragment);
@@ -74,4 +74,12 @@ public class UserActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null){
+            this.userFragment.getProfileImage().setImageDrawable();
+        }
+    }*/
 }

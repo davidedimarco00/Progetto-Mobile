@@ -56,6 +56,9 @@ public class LoginModel extends Model implements LoginModelInterface {
             userBundle.putString("username", this.loggedUser.getUsername());
             userBundle.putString("password", this.loggedUser.getPassword());
             userBundle.putBoolean("isAdmin", this.loggedUser.isAdmin());
+            userBundle.putString("userRole", this.loggedUser.getRole());
+            userBundle.putString("userBio", this.loggedUser.getBio());
+            userBundle.putSerializable("user", this.loggedUser);
         }
         return userBundle;
     }

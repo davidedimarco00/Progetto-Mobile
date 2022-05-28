@@ -43,11 +43,12 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.navigation:navigation-ui:2.4.2'
-    implementation 'androidx.room:room-common:2.3.0'
-    implementation 'androidx.room:room-runtime:2.3.0'
+
     implementation "com.airbnb.android:lottie:3.4.0"
     implementation 'androidx.room:room-common:2.3.0'
     implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
+
     implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

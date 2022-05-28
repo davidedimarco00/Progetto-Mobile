@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey;
 import com.app.mypresence.model.database.AppDatabase;
 import com.app.mypresence.model.utils.SHA1;
 
+import java.io.Serializable;
+
 @Entity
-public class User {
+public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "userId")
