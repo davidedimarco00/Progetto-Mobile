@@ -52,4 +52,12 @@ public class MyPresenceViewModel extends AndroidViewModel {
         return this.userRepo.mostWorkedHoursInDay(username, password);
     }
 
+    public String earliestArrival(final String username, final String password){
+        return this.userRepo.earliestArrival(username, password);
+    }
+
+    public String latestLeave(final String username, final String password){
+        return this.userRepo.latestLeave(username, password);
+    }
+
 }

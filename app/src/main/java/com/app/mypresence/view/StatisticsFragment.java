@@ -118,15 +118,19 @@ public class StatisticsFragment extends Fragment {
         };
         statsThread2.run();
 
+        Runnable statsThread3 = () -> {
+            String earliestArrivalTime = mpvm.earliestArrival(username, password);
+            String latestLeaveTime = mpvm.latestLeave(username, password);
+            TextView earliestArrival = this.getView().findViewById(R.id.earliestArrival);
+            TextView latestLeave = this.getView().findViewById(R.id.latestLeave);
+
+            earliestArrival.setText(earliestArrivalTime);
+            latestLeave.setText(latestLeaveTime);
+        };
+        statsThread3.run();
+
+
     }
 
-    private String infoBuilder(String name, DateInfo dateInfo){
-        return name +
-                " today " +
-                dateInfo.getDate().toString() +
-                " worked " +
-                dateInfo.getWorkedHours() +
-                " hours";
-    }
 
 }

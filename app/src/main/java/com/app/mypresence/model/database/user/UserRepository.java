@@ -9,6 +9,8 @@ import com.app.mypresence.model.database.DateInfo;
 import com.app.mypresence.model.database.UserAndStats;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -118,6 +120,56 @@ public class UserRepository {
         }
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         return new Pair<>(formatter.format(date), maxTimeHoursMinutes);
+    }
+
+    public String earliestArrival(final String username, final String password){
+        List<UserAndStats> userAndStats = this.getUserStats(username, password);
+        List<DateInfo> dateInfos = userAndStats.get(0).stats;
+        int currentMonth = this.getCurrentMonth();
+        int minH = 24;
+        int minMin = 60;
+        for(DateInfo dateInfo : dateInfos){
+            if(dateInfo.getDate().getMonth() == currentMonth){
+                String[] time = dateInfo.getStartShiftTime().split(":");
+                int hour = Integer.valueOf(time[0]);
+                int min = Integer.valueOf(time[1]);
+                if(hour < minH && min < minMin){
+                    minMin = min;
+                    minH = hour;
+                }
+            }
+        }
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
+        String hours = this.timeFixerFormat(minH);
+        String minutes = this.timeFixerFormat(minMin);
+        return hours + ":" + minutes;
+    }
+
+    public String latestLeave(final String username, final String password){
+        List<UserAndStats> userAndStats = this.getUserStats(username, password);
+        List<DateInfo> dateInfos = userAndStats.get(0).stats;
+        int currentMonth = this.getCurrentMonth();
+        int maxH = 0;
+        int maxMin = 0;
+        for(DateInfo dateInfo : dateInfos){
+            if(dateInfo.getDate().getMonth() == currentMonth){
+                String[] time = dateInfo.getEndShiftTime().split(":");
+                int hour = Integer.valueOf(time[0]);
+                int min = Integer.valueOf(time[1]);
+                if(hour > maxH && min > maxMin){
+                    maxMin = min;
+                    maxH = hour;
+                }
+            }
+        }
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
+        String hours = this.timeFixerFormat(maxH);
+        String minutes = this.timeFixerFormat(maxMin);
+        return hours + ":" + minutes;
+    }
+
+    private String timeFixerFormat(final int time){
+        return time > 9 ? String.valueOf(time) : "0" +  String.valueOf(time);
     }
 
 }

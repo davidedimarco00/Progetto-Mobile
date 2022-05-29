@@ -240,9 +240,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Total worked hours"
+                        android:text="Earliest arrival"
                         android:textColor="@color/blue"
-                        android:textSize="22dp"
+                        android:textSize="20dp"
                         android:textStyle="bold"
                         android:textAlignment="textEnd"/>
 
@@ -260,7 +260,8 @@
                         android:fontFamily="@font/poppins_medium"
                         android:text="12:13h"
                         android:textColor="@color/blue"
-                        android:textSize="40dp"
+                        android:id="@+id/earliestArrival"
+                        android:textSize="25dp"
                         android:textStyle="bold" />
 
 
@@ -293,9 +294,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Total worked hours"
+                        android:text="Latest leave"
                         android:textColor="@color/blue"
-                        android:textSize="22dp"
+                        android:textSize="20dp"
                         android:textStyle="bold"
                         android:textAlignment="textEnd"/>
 
@@ -312,8 +313,9 @@
                         android:layout_gravity="bottom|end"
                         android:fontFamily="@font/poppins_medium"
                         android:text="12:13h"
+                        android:id="@+id/latestLeave"
                         android:textColor="@color/blue"
-                        android:textSize="40dp"
+                        android:textSize="25dp"
                         android:textStyle="bold" />
 
 

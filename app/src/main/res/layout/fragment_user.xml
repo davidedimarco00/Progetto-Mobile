@@ -89,7 +89,7 @@
         android:singleLine="false"
         android:textColor="@color/black"
         android:textSize="14dp"
-        android:text="ccc"
+        android:text="Principal SWE."
         app:layout_constraintLeft_toRightOf="@id/imageCard"
         app:layout_constraintTop_toBottomOf="@id/imageCard"
         />
