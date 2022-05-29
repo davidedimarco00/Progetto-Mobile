@@ -14,8 +14,8 @@ public class UserRepository {
 
     private final UserDAO userDAO;
 
-    private final LiveData<List<User>> allUsers;
-    private final LiveData<List<UserAndStats>> usersAndStats;
+    private final List<User> allUsers;
+    private final List<UserAndStats> usersAndStats;
 
     public UserRepository(Application application){
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -26,11 +26,11 @@ public class UserRepository {
         this.usersAndStats = this.userDAO.getUsersWithStats();
     }
 
-    public LiveData<List<User>> getAllUsers(){
+    public List<User> getAllUsers(){
         return this.allUsers;
     }
 
-    public LiveData<List<UserAndStats>> getAllUsersAndStats(){
+    public List<UserAndStats> getAllUsersAndStats(){
         return this.usersAndStats;
     }
 

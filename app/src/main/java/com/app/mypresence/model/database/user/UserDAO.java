@@ -21,7 +21,7 @@ public interface UserDAO {
 
     @Transaction
     @Query("SELECT * FROM user ORDER BY userId DESC")
-    LiveData<List<User>> getAllUsers();
+    List<User> getAllUsers();
 
     @Transaction
     @Query("DELETE FROM user")
@@ -29,7 +29,7 @@ public interface UserDAO {
 
     @Transaction
     @Query("SELECT * FROM user")
-    LiveData<List<UserAndStats>> getUsersWithStats(); //Ti ritorna oggetti in cui è presente [user e tutte le sue stat nello stesso oggetto]
+    List<UserAndStats> getUsersWithStats(); //Ti ritorna oggetti in cui è presente [user e tutte le sue stat nello stesso oggetto]
 
     @Transaction
     @Query("SELECT * FROM user WHERE username=:username AND password=:password")

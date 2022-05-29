@@ -12,7 +12,7 @@ import com.app.mypresence.model.database.user.UserRepository;
 import java.util.List;
 
 public class MyPresenceViewModel extends AndroidViewModel {
-    private LiveData<List<User>> users;
+    private List<User> users;
 
     private UserRepository userRepo;
 
@@ -22,7 +22,7 @@ public class MyPresenceViewModel extends AndroidViewModel {
         this.users = this.userRepo.getAllUsers();
     }
 
-    public LiveData<List<User>> getAllUsers(){return this.users;}
+    public List<User> getAllUsers(){return this.users;}
 
     public void addUser(final User user){this.userRepo.addUser(user);}
 
