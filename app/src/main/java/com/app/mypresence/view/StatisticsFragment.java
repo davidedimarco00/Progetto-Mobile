@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.mypresence.R;
@@ -25,6 +26,8 @@ import com.app.mypresence.model.database.UserAndStats;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.Pair;
 
 
 /**
@@ -93,12 +96,27 @@ public class StatisticsFragment extends Fragment {
 
         MyPresenceViewModel mpvm = new MyPresenceViewModel(this.getActivity().getApplication());
 
-        Runnable loginThread = () -> {
-            List<UserAndStats> userAndStats = mpvm.getUserStats(username, password);
-            String text = this.infoBuilder(userAndStats.get(0).user.getName(), userAndStats.get(0).stats.get(0));
-        };
+        Runnable statsThread1 = () -> {
+            int workedHoursThisMonth = mpvm.totalWorkedHoursThisMonth(username, password);
+            TextView totalWorkedHours = this.getView().findViewById(R.id.numberTotWorkedHours);
+            totalWorkedHours.setText(String.valueOf(workedHoursThisMonth));
 
-        loginThread.run();
+            int averageWorkedHoursNumber = mpvm.averageHoursWorkedThisMonth(username, password);
+            TextView averageWorkedHours = this.getView().findViewById(R.id.avgWorkedHours);
+            averageWorkedHours.setText(String.valueOf(averageWorkedHoursNumber));
+
+        };
+        statsThread1.run();
+
+        Runnable statsThread2 = () -> {
+            Pair<String, Pair<Integer, Integer>> mostWorked = mpvm.mostWorkedHoursInDay(username, password);
+            TextView dateMostWorkedH = this.getView().findViewById(R.id.mostWorkedHoursInADayDate);
+            TextView mostWorkedH = this.getView().findViewById(R.id.mostWorkedHoursInADay);
+
+            dateMostWorkedH.setText(String.valueOf(mostWorked.getFirst()));
+            mostWorkedH.setText(String.valueOf(mostWorked.getSecond().getFirst()) + "H " + String.valueOf(mostWorked.getSecond().getSecond()) + "mins");
+        };
+        statsThread2.run();
 
     }
 

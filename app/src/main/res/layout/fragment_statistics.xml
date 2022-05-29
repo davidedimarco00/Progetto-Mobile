@@ -59,8 +59,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Total worked hours"
+                        android:text="Tot. hours this month"
                         android:textColor="@color/blue"
+                        android:id="@+id/totWorkedHours"
                         android:textSize="22dp"
                         android:textStyle="bold"
                         android:textAlignment="textEnd"/>
@@ -78,6 +79,7 @@
                         android:layout_gravity="bottom|end"
                         android:fontFamily="@font/poppins_medium"
                         android:text="12:13h"
+                        android:id="@+id/numberTotWorkedHours"
                         android:textColor="@color/blue"
                         android:textSize="40dp"
                         android:textStyle="bold" />
@@ -112,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Total worked hours"
+                        android:text="Avg. hours per day"
                         android:textColor="@color/blue"
                         android:textSize="22dp"
                         android:textStyle="bold"
@@ -131,6 +133,7 @@
                         android:layout_gravity="bottom|end"
                         android:fontFamily="@font/poppins_medium"
                         android:text="12:13h"
+                        android:id="@+id/avgWorkedHours"
                         android:textColor="@color/blue"
                         android:textSize="40dp"
                         android:textStyle="bold" />
@@ -171,10 +174,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Total worked hours"
+                        android:text="Most worked hours in a day"
                         android:textAlignment="textEnd"
                         android:textColor="@color/blue"
-                        android:textSize="22dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -188,8 +191,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Date"
+                        android:id="@+id/mostWorkedHoursInADayDate"
+                        android:textColor="@color/blue"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
                         android:fontFamily="@font/poppins_medium"
                         android:text="12:13h"
+                        android:id="@+id/mostWorkedHoursInADay"
                         android:textColor="@color/blue"
                         android:textSize="40dp"
                         android:textStyle="bold" />

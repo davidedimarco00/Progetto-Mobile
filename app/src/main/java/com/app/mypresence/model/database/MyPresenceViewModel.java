@@ -11,6 +11,8 @@ import com.app.mypresence.model.database.user.UserRepository;
 
 import java.util.List;
 
+import kotlin.Pair;
+
 public class MyPresenceViewModel extends AndroidViewModel {
     private List<User> users;
 
@@ -36,6 +38,18 @@ public class MyPresenceViewModel extends AndroidViewModel {
 
     public String getMatrice(final String username, final String password){
         return this.userRepo.getMatrice(username, password);
+    }
+
+    public int totalWorkedHoursThisMonth(final String username, final String password){
+        return this.userRepo.totalWorkedHoursThisMonth(username, password);
+    }
+
+    public int averageHoursWorkedThisMonth(final String username, final String password){
+        return this.userRepo.averageWorkedHoursThisMonth(username, password);
+    }
+
+    public Pair<String, Pair<Integer, Integer>> mostWorkedHoursInDay(final String username, final String password){
+        return this.userRepo.mostWorkedHoursInDay(username, password);
     }
 
 }
