@@ -15,9 +15,11 @@
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/activity_custom_dialog.xml" value="0.20534904805077062" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/activity_main.xml" value="0.18041704442429737" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/activity_nfcactivity.xml" value="0.1881145788798632" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/activity_splash_screen.xml" value="0.2638259292837715" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/activity_user.xml" value="0.25" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/customDialog.xml" value="0.20534904805077062" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/custom_dialog.xml" value="0.1881145788798632" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/custom_dialog_choose_photo.xml" value="0.228921124206709" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/fragment_admin.xml" value="0.26222826086956524" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/fragment_settings.xml" value="0.18041704442429737" />
@@ -25,6 +27,7 @@
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/fragment_user.xml" value="0.25" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/layout/statistic_list_card.xml" value="0.21758839528558477" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/menu/bottom_nav_menu.xml" value="0.31765711842667804" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/xml/nfc_tech_filter.xml" value="0.1" />
         <entry key="..\:/Users/david/OneDrive/Desktop/myPresence/app/src/main/res/xml/root_preferences.xml" value="0.18041704442429737" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.218" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.27" />

@@ -151,6 +151,7 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity().getBaseContext(), NFCActivity.class);
+                intent.putExtra("username", bundle.getString("username"));
                 startActivity(intent);
             }
         });
@@ -185,8 +186,11 @@ public class UserFragment extends Fragment {
                         String strName = arrayAdapter.getItem(which);
                         switch (strName){
                             case "Choose from gallery":
+
                                 break;
                             case "Take a picture":
+                               /* Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(cameraIntent, );*/
                                 break;
                         }
                     }
@@ -196,13 +200,14 @@ public class UserFragment extends Fragment {
         });
 
 
-        CountDownTimer t = new CountDownTimer(Long.MAX_VALUE ,1000) { // interval 1s
+     /*   CountDownTimer t = new CountDownTimer(Long.MAX_VALUE ,10000) { // interval 1s
 
             public void onTick(long millisUntilFinished) {
 
                 //check actual datetime and change ball imageview
-               /* MyPresenceViewModel model = new MyPresenceViewModel(UserFragment.super.getActivity().getApplication());
-                model.getAllUsers().getValue().*/
+               /* MyPresenceViewModel model = new MyPresenceViewModel(getActivity().getApplication());
+
+                System.out.println(model.getAllUsers().toString());
 
 
 
@@ -210,30 +215,12 @@ public class UserFragment extends Fragment {
                 /*checkVisible(ArrayList visible);// make visible button
                 checkInvisible(ArrayList invisible); // make invisible button*/
 
-            }
-            public void onFinish() {
+            //}
+           /* public void onFinish() {
                 System.out.println("finished");
+                this.onFinish();
             }
-        }.start();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }.start();*/
 
 
         return view;

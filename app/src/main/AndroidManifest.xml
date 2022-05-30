@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.mypresence">
 
+    <uses-permission android:name="android.permission.NFC"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +18,13 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog"
 
-            android:excludeFromRecents="true" />
+            android:excludeFromRecents="true" >
+            <intent-filter>
+                <action android:name= "android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
 
 
         <activity
