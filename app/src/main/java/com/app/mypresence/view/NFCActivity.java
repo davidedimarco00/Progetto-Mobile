@@ -45,7 +45,7 @@ public class NFCActivity extends AppCompatActivity {
 
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
-    private Vibrator myVib;
+    private Vibrator myVib;  //vibration feedback
     private String username;
     private String password;
     private  LottieAnimationView lottieAnimationView;
@@ -71,8 +71,7 @@ public class NFCActivity extends AppCompatActivity {
         this.password = getIntent().getExtras().getString("password");
 
         this.myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
-
-        pendingIntent = PendingIntent.getActivity(this, 0,
+        this.pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
     }
@@ -86,7 +85,6 @@ public class NFCActivity extends AppCompatActivity {
 
     private void resolveIntent(Intent intent) {
         String action = intent.getAction();
-
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
@@ -99,42 +97,35 @@ public class NFCActivity extends AppCompatActivity {
                     msgs[i] = (NdefMessage) rawMsgs[i];
                 }
             }
-
             if (msgs != null ) {
                 displayMsgs(msgs);
             }
-
         }
     }
 
     private void displayMsgs(NdefMessage[] msgs) {
-
         String readerCode = "";
-
         this.lottieAnimationView.setAnimation(R.raw.read_nfc_done_animation);
         this.lottieAnimationView.setSpeed(3);
         this.lottieAnimationView.playAnimation();
-
         if (msgs == null || msgs.length == 0)
             return;
-
         StringBuilder builder = new StringBuilder();
         List<ParsedNdefRecord> records = NdefMessageParser.parse(msgs[0]);
         final int size = records.size();
-
         for (ParsedNdefRecord r : records) {
             Log.e("record", r.str());
             readerCode = r.str();
         }
-
-
 
         if (NfcVerifier.checkScan(getIntent().getExtras().getString("username"), readerCode)){
             Log.e("READER:", "OK");
             Runnable getUserStatusAndUpdateIt = () -> {
                 UserAndStats user = this.mpvm.getUserStats(this.username, this.password).get(0);
                 if(user.stats.get(user.stats.size()-1).getStatus() == "over"){
-                    this.mpvm.addStats(new DateInfo("active", new Date(), this.getCurrentTime(), null));
+                    DateInfo dateInfo = new DateInfo("active", new Date(), this.getCurrentTime(), null);
+                    dateInfo.userOwnerOfStat = user.user.getUserId();
+                    this.mpvm.addStats(dateInfo);
                 }else{
                     user.stats.get(user.stats.size()-1).setStatus("over");
                     user.stats.get(user.stats.size()-1).setEndShiftTime(this.getCurrentTime());
@@ -142,13 +133,12 @@ public class NFCActivity extends AppCompatActivity {
             };
             getUserStatusAndUpdateIt.run();
         }else{
-
             Toast.makeText(this, "NFC scanner is not authorized", Toast.LENGTH_SHORT).show();
-
         }
-
         this.myVib.vibrate(100);
-        finish();
+
+        //here must exit from activity after saving the arrival time into database.
+
     }
 
     private String getCurrentTime(){
