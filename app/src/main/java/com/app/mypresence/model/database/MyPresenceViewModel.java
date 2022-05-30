@@ -32,6 +32,10 @@ public class MyPresenceViewModel extends AndroidViewModel {
         return this.userRepo.getUserFromUsernameAndPassword(username, password);
     }
 
+    public void addStats(final DateInfo dateInfo){
+        this.userRepo.addStats(dateInfo);
+    }
+
     public List<UserAndStats> getUserStats(final String username, final String password){
         return this.userRepo.getUserStats(username, password);
     }

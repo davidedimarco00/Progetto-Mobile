@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Database(entities = {User.class, DateInfo.class}, version = 17)
+@Database(entities = {User.class, DateInfo.class}, version = 18)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -125,7 +125,7 @@ public abstract class AppDatabase extends RoomDatabase {
         List<DateInfo> datesToAdd = new ArrayList<>();
 
         for(Pair<Date,Pair<String, String>> stamp:datesForMonth){
-            datesToAdd.add(new DateInfo("active", stamp.first, stamp.second.first, stamp.second.second));
+            datesToAdd.add(new DateInfo("over", stamp.first, stamp.second.first, stamp.second.second));
         }
 
         return datesToAdd;

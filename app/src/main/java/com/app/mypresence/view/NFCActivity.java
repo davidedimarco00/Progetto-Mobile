@@ -19,6 +19,10 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.app.mypresence.R;
+import com.app.mypresence.model.database.DateInfo;
+import com.app.mypresence.model.database.MyPresenceViewModel;
+import com.app.mypresence.model.database.UserAndStats;
+import com.app.mypresence.model.database.user.User;
 import com.app.mypresence.model.utils.nfc.NdefMessageParser;
 import com.app.mypresence.model.utils.nfc.NfcVerifier;
 import com.app.mypresence.model.utils.nfc.ParsedNdefRecord;
@@ -27,7 +31,12 @@ import com.app.mypresence.presenter.LoginPresenterInterface;
 import com.app.mypresence.presenter.NFCActivityPresenter;
 import com.app.mypresence.presenter.NFCPresenterInterface;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
 
 public class NFCActivity extends AppCompatActivity {
@@ -38,12 +47,16 @@ public class NFCActivity extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private Vibrator myVib;
     private String username;
+    private String password;
     private  LottieAnimationView lottieAnimationView;
-
+    private MyPresenceViewModel mpvm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        getCurrentTime();
+        this.mpvm = new MyPresenceViewModel(getApplication());
         setContentView(R.layout.activity_nfcactivity);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
@@ -54,8 +67,8 @@ public class NFCActivity extends AppCompatActivity {
         }
         this.lottieAnimationView = (LottieAnimationView) findViewById(R.id.animationView);
 
-        this.username =getIntent().getExtras().getString("username");
-
+        this.username = getIntent().getExtras().getString("username");
+        this.password = getIntent().getExtras().getString("password");
 
         this.myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
@@ -114,8 +127,20 @@ public class NFCActivity extends AppCompatActivity {
             readerCode = r.str();
         }
 
+
+
         if (NfcVerifier.checkScan(getIntent().getExtras().getString("username"), readerCode)){
             Log.e("READER:", "OK");
+            Runnable getUserStatusAndUpdateIt = () -> {
+                UserAndStats user = this.mpvm.getUserStats(this.username, this.password).get(0);
+                if(user.stats.get(user.stats.size()-1).getStatus() == "over"){
+                    this.mpvm.addStats(new DateInfo("active", new Date(), this.getCurrentTime(), null));
+                }else{
+                    user.stats.get(user.stats.size()-1).setStatus("over");
+                    user.stats.get(user.stats.size()-1).setEndShiftTime(this.getCurrentTime());
+                }
+            };
+            getUserStatusAndUpdateIt.run();
         }else{
 
             Toast.makeText(this, "NFC scanner is not authorized", Toast.LENGTH_SHORT).show();
@@ -124,6 +149,12 @@ public class NFCActivity extends AppCompatActivity {
 
         this.myVib.vibrate(100);
         finish();
+    }
+
+    private String getCurrentTime(){
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
+        DateTime current = new DateTime();
+        return current.toString().substring(11,16);
     }
 
     @Override
