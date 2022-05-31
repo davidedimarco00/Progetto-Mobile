@@ -139,8 +139,6 @@ public class NFCActivity extends AppCompatActivity {
 
                     Log.e("statusPrima", user.stats.get(user.stats.size()-1).getStatus());
 
-
-
                     user.stats.get(user.stats.size() - 1).setStatus("over");
 
                     user.stats.get(user.stats.size() -1).setEndShiftTime(this.getCurrentTime());
@@ -161,6 +159,7 @@ public class NFCActivity extends AppCompatActivity {
             Toast.makeText(this, "NFC scanner is not authorized", Toast.LENGTH_SHORT).show();
         }
         this.myVib.vibrate(100);
+        this.finishActivity(0);
 
         //here must exit from activity after saving the arrival time into database.
 

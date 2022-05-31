@@ -159,6 +159,7 @@ public class UserFragment extends Fragment {
                 case "active":
                     System.out.println("sono qui active");
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
+                    this.btnStartTurn.setText("Stop your turn");
                     break;
                 case "over":
                /* System.out.println("sono qui over");
@@ -167,6 +168,7 @@ public class UserFragment extends Fragment {
                 default:
                     System.out.println("sono qui over");
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                    this.btnStartTurn.setText("Start your turn");
                     break;
 
             }
@@ -294,6 +296,7 @@ public class UserFragment extends Fragment {
             case "active":
                 System.out.println("sono qui active");
                 this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
+                this.btnStartTurn.setText("End your turn");
                 break;
             case "over":
                /* System.out.println("sono qui over");
@@ -302,6 +305,7 @@ public class UserFragment extends Fragment {
             default:
                 System.out.println("sono qui over");
                 this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                this.btnStartTurn.setText("Start your turn");
                 break;
 
         }
