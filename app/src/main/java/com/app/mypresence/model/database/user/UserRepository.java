@@ -40,6 +40,10 @@ public class UserRepository {
         return this.allUsers;
     }
 
+    public void updateDateInfo(DateInfo dateInfo) {
+        this.userDAO.updateDateInfo(dateInfo);
+    }
+
     public List<UserAndStats> getAllUsersAndStats(){
         return this.usersAndStats;
     }

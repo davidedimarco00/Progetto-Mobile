@@ -72,6 +72,7 @@ public class UserFragment extends Fragment {
 
 
     private User user;
+    private MyPresenceViewModel model;
 
     public UserFragment() {
         // Required empty public constructor
@@ -131,10 +132,10 @@ public class UserFragment extends Fragment {
             String role = this.bundle.getString("userRole");
             this.user = (User) this.bundle.get("user");
 
+            this.model = new MyPresenceViewModel(getActivity().getApplication());
+
 
             Log.e("user", this.user.toString());
-
-
 
             this.txtUsername.setText(name + " " + surname);
             //this.txtBio.setText(bio);
@@ -144,6 +145,46 @@ public class UserFragment extends Fragment {
                                    .toLowerCase()
                                    .replace(" ",""), "drawable", this.getActivity().getPackageName());
             this.imgProfile.setImageResource(id);
+
+
+
+
+            UserAndStats userModel = model.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
+
+
+
+            System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1 ).getStatus() + " " +this.user.getUsername() + " " + this.user.getPassword()  );
+            switch (userModel.stats.get(userModel.stats.size() - 1 ).getStatus()) {
+
+                case "active":
+                    System.out.println("sono qui active");
+                    this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
+                    break;
+                case "over":
+               /* System.out.println("sono qui over");
+                this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                break;*/
+                default:
+                    System.out.println("sono qui over");
+                    this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                    break;
+
+            }
+
+           /* switch (model.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0).stats.get(0).getStatus()) {
+
+                case "active":
+                    this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
+                    break;
+                case "over":
+                    this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                    break;
+                default:
+                    break;
+
+            }*/
+
+           Log.e("USERS", model.getAllUsers().toString());
         }
 
 
@@ -152,6 +193,7 @@ public class UserFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity().getBaseContext(), NFCActivity.class);
                 intent.putExtra("username", bundle.getString("username"));
+                intent.putExtra("password", bundle.getString("password"));
                 startActivity(intent);
             }
         });
@@ -234,4 +276,37 @@ public class UserFragment extends Fragment {
             // /*TODO: NOT STORE IMAGE IN DRAWABLE BECAUSE AT RUNTIME IT IS READONLY*/
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+         MyPresenceViewModel model1 = new MyPresenceViewModel(getActivity().getApplication());
+
+
+        UserAndStats userModel = model1.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
+
+
+
+        System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1 ).getStatus() + " " +this.user.getUsername() + " " + this.user.getPassword()  );
+        switch (userModel.stats.get(userModel.stats.size() - 1 ).getStatus()) {
+
+            case "active":
+                System.out.println("sono qui active");
+                this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
+                break;
+            case "over":
+               /* System.out.println("sono qui over");
+                this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                break;*/
+            default:
+                System.out.println("sono qui over");
+                this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                break;
+
+        }
+    }
+
+
+
 }

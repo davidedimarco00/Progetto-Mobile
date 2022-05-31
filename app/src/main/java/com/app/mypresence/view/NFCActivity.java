@@ -121,17 +121,42 @@ public class NFCActivity extends AppCompatActivity {
         if (NfcVerifier.checkScan(getIntent().getExtras().getString("username"), readerCode)){
             Log.e("READER:", "OK");
             Runnable getUserStatusAndUpdateIt = () -> {
+
+                Log.e("username", this.username);
+                Log.e("password", this.password);
+
                 UserAndStats user = this.mpvm.getUserStats(this.username, this.password).get(0);
-                if(user.stats.get(user.stats.size()-1).getStatus() == "over"){
-                    DateInfo dateInfo = new DateInfo("active", new Date(), this.getCurrentTime(), null);
+
+                if(user.stats.get(user.stats.size()-1).getStatus().equals("over")){
+
+                    DateInfo dateInfo = new DateInfo("active", new Date(), this.getCurrentTime(), "23:59");
                     dateInfo.userOwnerOfStat = user.user.getUserId();
                     this.mpvm.addStats(dateInfo);
+
+
                 }else{
-                    user.stats.get(user.stats.size()-1).setStatus("over");
-                    user.stats.get(user.stats.size()-1).setEndShiftTime(this.getCurrentTime());
+
+
+                    Log.e("statusPrima", user.stats.get(user.stats.size()-1).getStatus());
+
+
+
+                    user.stats.get(user.stats.size() - 1).setStatus("over");
+
+                    user.stats.get(user.stats.size() -1).setEndShiftTime(this.getCurrentTime());
+
+                    this.mpvm.updateDateInfo(user.stats.get(user.stats.size() - 1));
+
+                    Log.e("dateinfo", user.stats.get(user.stats.size()-1).getDate().toString());
+                    Log.e("status", user.stats.get(user.stats.size()-1).getStatus());
+                    Log.e("startshift", user.stats.get(user.stats.size() -1 ).getStartShiftTime());
+                    Log.e("endshiftr", user.stats.get(user.stats.size() -1).getEndShiftTime());
                 }
+
             };
             getUserStatusAndUpdateIt.run();
+
+
         }else{
             Toast.makeText(this, "NFC scanner is not authorized", Toast.LENGTH_SHORT).show();
         }
