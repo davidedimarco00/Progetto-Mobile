@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.mypresence">
 
-    <uses-permission android:name="android.permission.NFC"/>
-
+    <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -14,19 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyPresence">
         <activity
-            android:name=".view.NFCActivity"
+            android:name=".SettingsActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog"
-
-            android:excludeFromRecents="true" >
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".view.NFCActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog">
             <intent-filter>
-                <action android:name= "android.nfc.action.NDEF_DISCOVERED"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain"/>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".view.UserActivity"
             android:exported="false" />

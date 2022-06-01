@@ -1,14 +1,355 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.SettingsFragment">
+    tools:context=".view.StatisticsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:weightSum="1">
 
-</FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="218dp"
+            android:background="@drawable/purple_bg">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="249dp"
+                android:layout_height="84dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Settings"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:shadowDx="32"
+                android:textSize="32dp" />
+        </FrameLayout>
+
+        <TableRow>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="10dp"
+                app:cardPreventCornerOverlap="false"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Tot. hours this month"
+                        android:textColor="@color/blue"
+                        android:id="@+id/totWorkedHours"
+                        android:textSize="22dp"
+                        android:textStyle="bold"
+                        android:textAlignment="textEnd"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center_horizontal|end"
+                        android:src="@drawable/work_time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="12:13h"
+                        android:id="@+id/numberTotWorkedHours"
+                        android:textColor="@color/blue"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="10dp"
+                app:cardPreventCornerOverlap="false"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Avg. hours per day"
+                        android:textColor="@color/blue"
+                        android:textSize="22dp"
+                        android:textStyle="bold"
+                        android:textAlignment="textEnd"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center_horizontal|end"
+                        android:src="@drawable/work_time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="12:13h"
+                        android:id="@+id/avgWorkedHours"
+                        android:textColor="@color/blue"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </TableRow>
+
+
+
+
+
+
+        <TableRow>
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="10dp"
+                app:cardPreventCornerOverlap="false"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Most worked hours in a day"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/blue"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center_horizontal|end"
+                        android:src="@drawable/work_time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Date"
+                        android:id="@+id/mostWorkedHoursInADayDate"
+                        android:textColor="@color/blue"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="12:13h"
+                        android:id="@+id/mostWorkedHoursInADay"
+                        android:textColor="@color/blue"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </TableRow>
+
+        <TableRow>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="10dp"
+                app:cardPreventCornerOverlap="false"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Earliest arrival"
+                        android:textColor="@color/blue"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textAlignment="textEnd"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center_horizontal|end"
+                        android:src="@drawable/work_time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="12:13h"
+                        android:textColor="@color/blue"
+                        android:id="@+id/earliestArrival"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="10dp"
+                app:cardPreventCornerOverlap="false"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Latest leave"
+                        android:textColor="@color/blue"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textAlignment="textEnd"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center_horizontal|end"
+                        android:src="@drawable/work_time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="12:13h"
+                        android:id="@+id/latestLeave"
+                        android:textColor="@color/blue"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </TableRow>
+
+
+
+
+
+
+
+
+
+
+
+        <TableRow>
+
+
+
+        </TableRow>
+
+
+
+        <TableRow>
+
+
+
+        </TableRow>
+
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </TableLayout>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
