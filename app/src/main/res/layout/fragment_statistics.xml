@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="60dp"
     tools:context=".view.StatisticsFragment">
 
     <TableLayout
@@ -266,9 +267,6 @@
 
             </androidx.cardview.widget.CardView>
 
-
-
-
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="200dp"
@@ -334,23 +332,52 @@
 
 
         <TableRow>
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:elevation="80dp"
+                android:textColor="@color/purple_500"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="10dp"
+                app:cardPreventCornerOverlap="false">
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:fontFamily="@font/poppins_medium"
 
+                        android:id="@+id/month_textview"
+                        android:textColor="@color/blue"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+                        android:id="@+id/compactcalendar"
+                        android:layout_width="fill_parent"
+
+                        android:layout_height="wrap_content"
+                        app:compactCalendarTargetHeight="250dp"
+                        app:compactCalendarTextSize="12sp"
+                        app:compactCalendarTextColor="@color/black"
+                        app:compactCalendarBackgroundColor="@color/white"
+                        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/purple_200"
+                        app:compactCalendarCurrentDayBackgroundColor="@color/purple_200"
+
+                        app:compactCalendarMultiEventIndicatorColor="#fff"
+                        />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
         </TableRow>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <TableRow>
 
@@ -358,19 +385,7 @@
 
         </TableRow>
 
-        <com.github.sundeepk.compactcalendarview.CompactCalendarView
-            android:id="@+id/compactcalendar"
-            android:layout_width="fill_parent"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:layout_height="250dp"
-            app:compactCalendarTargetHeight="250dp"
-            app:compactCalendarTextSize="12sp"
-            app:compactCalendarTextColor="#fff"
-            app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
-            app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
-            app:compactCalendarMultiEventIndicatorColor="#fff"
-            />
+
 
 
 

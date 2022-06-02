@@ -3,7 +3,6 @@ package com.app.mypresence.view;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.metrics.Event;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
@@ -27,11 +28,17 @@ import com.app.mypresence.model.database.DateInfo;
 import com.app.mypresence.model.database.MyPresenceViewModel;
 import com.app.mypresence.model.database.UserAndStats;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
+
+import org.joda.time.DateTime;
+import org.w3c.dom.Text;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import kotlin.Pair;
@@ -50,6 +57,7 @@ public class StatisticsFragment extends Fragment {
     private static final String ARG_PARAM2 = "password";
     private RecyclerView recyclerView;
     private CompactCalendarView calendarView;
+    private TextView txtmonth;
 
 
     // TODO: Rename and change types of parameters
@@ -98,22 +106,68 @@ public class StatisticsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MyPresenceViewModel model = new MyPresenceViewModel(getActivity().getApplication());
+
+
         this.calendarView = (CompactCalendarView) view.findViewById(R.id.compactcalendar);
+        this.txtmonth = (TextView) view.findViewById(R.id.month_textview);
+        calendarView.setUseThreeLetterAbbreviation(true);
+        calendarView.shouldScrollMonth(true);
 
         List<Event> listEvent = new ArrayList<Event>();
 
-        Map<String, List<Long>> mapList =
+        Map<String, List<Long>> mapList = model.getMonthStatus(this.username, this.password, 4);
+
+        /*Event ev1 = new Event(Color.BLACK, 1477040400000L, "Teachers' Professional Day");
+        compactCalendar.addEvent(ev1);*/
+
+        for (String color : mapList.keySet()) {
+
+            List<Long> list = mapList.get(color);
+
+            for (int i = 0;i<list.size()-1;i++) {
+
+                if (color.equals("red")){
+                    Event event = new Event(Color.RED, list.get(i), "You work too much");
+                    listEvent.add(event);
+
+                } else if (color.equals("green")) {
+                    Event event = new Event(Color.GREEN, list.get(i), "You work too much");
+                    listEvent.add(event);
+                }else {
+                    Event event = new Event(Color.BLACK, list.get(i), "You work too much");
+                    listEvent.add(event);
+
+                }
+            }
+        }
+
+        for (Event e : listEvent){
+            calendarView.addEvent(e);
+        }
+
+        SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
+
+        calendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                Animation myAnim = AnimationUtils.loadAnimation(getActivity(), androidx.preference.R.anim.abc_fade_in);
+                calendarView.startAnimation(myAnim);
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                txtmonth.setText(dateFormatForMonth.format(firstDayOfNewMonth));
+            }
+        });
+
+        this.txtmonth.setText(dateFormatForMonth.format(calendarView.getFirstDayOfCurrentMonth()));
 
 
-        this.calendarView.setOn
 
 
 
-
-
-
-
-
+        System.out.println(mapList);
 
         this.setView(getActivity());
     }

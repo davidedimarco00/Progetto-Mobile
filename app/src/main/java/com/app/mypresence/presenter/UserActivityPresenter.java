@@ -48,7 +48,7 @@ public class UserActivityPresenter extends Presenter implements UserActivityPres
 
     private void showFragment(Fragment fragment) {
         this.activity.getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.anim_left_to_right, R.anim.exit_left_to_right)
+                .setCustomAnimations(androidx.preference.R.anim.abc_fade_in, androidx.preference.R.anim.abc_fade_out)
                 .setReorderingAllowed(true)
                 .replace(R.id.fragment_container_view, fragment, null)
                 .commit();
