@@ -98,7 +98,8 @@ public class UserRepository {
 
     public int averageWorkedHoursThisMonth(final String username, final String password){
         int totalHoursWorked = this.totalWorkedHoursThisMonth(username, password);
-        return totalHoursWorked / this.getDaysWorked(username, password);
+
+        return totalHoursWorked / (this.getDaysWorked(username, password) == 0 ? 1:this.getDaysWorked(username, password));
     }
 
     public Pair<String, Pair<Integer, Integer>> mostWorkedHoursInDay(final String username, final String password){
