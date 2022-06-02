@@ -61,12 +61,14 @@ public class UserActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btn_statics:
+
                         presenter.showStatisticFragment(statisticsFragment);
                         break;
                     case R.id.btn_profile:
                         presenter.showUserFragment(userFragment);
                         break;
                     case R.id.btn_settings:
+
                         presenter.showSettingsFragment(settingsFragment);
                         break;
                 }

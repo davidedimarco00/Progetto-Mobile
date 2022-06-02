@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -29,13 +30,19 @@ import android.widget.Toast;
 
 import com.app.mypresence.R;
 import com.app.mypresence.model.database.AppDatabase;
+import com.app.mypresence.model.database.Converters;
 import com.app.mypresence.model.database.DateInfo;
 import com.app.mypresence.model.database.MyPresenceViewModel;
 import com.app.mypresence.model.database.UserAndStats;
 import com.app.mypresence.model.database.user.User;
 import com.app.mypresence.model.database.user.UserDAO;
 
+import org.joda.time.DateTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -63,15 +70,20 @@ public class UserFragment extends Fragment {
     private TextView txtUsername;
     /*private TextView txtBio;*/
     private TextView txtRole;
+    private TextView labelStartTurn;
+
     private CircleImageView imgProfile;
     private ImageView ballImg;
-    private AppCompatButton btnStartTurn;
+    private CardView btnStartTurn;
     private CalendarView calendarView;
+    private ImageView signatureImg;
     private Bundle bundle;
     private CardView btnLoadDoc;
+    private CardView btnGoToWork;
 
 
     private User user;
+    private MyPresenceViewModel model;
 
     public UserFragment() {
         // Required empty public constructor
@@ -107,22 +119,25 @@ public class UserFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user, container, false);
 
         // Inflate the layout for this fragment
-        if (container != null){
+        if (container != null) {
             this.txtUsername = view.findViewById(R.id.txtUsername);
             this.imgProfile = view.findViewById(R.id.imgProfile);
             this.btnStartTurn = view.findViewById(R.id.btnStartTurn);
             this.btnLoadDoc = view.findViewById(R.id.btnLoadDoc);
+            this.signatureImg = view.findViewById(R.id.signatureIcon);
             //this.txtBio = view.findViewById(R.id.txtBio1);
             this.txtRole = view.findViewById(R.id.txtRole);
             this.ballImg = view.findViewById(R.id.imgBall);
+            this.labelStartTurn = view.findViewById(R.id.labelStartYourTurn);
+            this.btnGoToWork = view.findViewById(R.id.btnGoToWork);
         }
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             this.bundle = this.getArguments().getBundle("userInfo");
 
             String name = this.bundle.getString("name");
@@ -131,19 +146,47 @@ public class UserFragment extends Fragment {
             String role = this.bundle.getString("userRole");
             this.user = (User) this.bundle.get("user");
 
+            this.model = new MyPresenceViewModel(getActivity().getApplication());
+
 
             Log.e("user", this.user.toString());
-
-
 
             this.txtUsername.setText(name + " " + surname);
             //this.txtBio.setText(bio);
             this.txtRole.setText(role);
 
             int id = getResources().getIdentifier((name + surname)
-                                   .toLowerCase()
-                                   .replace(" ",""), "drawable", this.getActivity().getPackageName());
+                    .toLowerCase()
+                    .replace(" ", ""), "drawable", this.getActivity().getPackageName());
             this.imgProfile.setImageResource(id);
+
+
+            UserAndStats userModel = model.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
+
+
+            System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1).getStatus() + " " + this.user.getUsername() + " " + this.user.getPassword());
+            switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
+
+                case "active":
+                    System.out.println("sono qui active");
+                    this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
+                    this.labelStartTurn.setText("Stop your turn");
+                    break;
+                case "over":
+               /* System.out.println("sono qui over");
+                this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                break;*/
+                default:
+                    System.out.println("sono qui over");
+                    this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+
+                    this.labelStartTurn.setText("Start your turn");
+                    break;
+
+            }
+
+
+            Log.e("USERS", model.getAllUsers().toString());
         }
 
 
@@ -152,6 +195,7 @@ public class UserFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity().getBaseContext(), NFCActivity.class);
                 intent.putExtra("username", bundle.getString("username"));
+                intent.putExtra("password", bundle.getString("password"));
                 startActivity(intent);
             }
         });
@@ -166,7 +210,7 @@ public class UserFragment extends Fragment {
                 return true;
             }
         });
-        
+
         this.btnLoadDoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,7 +228,7 @@ public class UserFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String strName = arrayAdapter.getItem(which);
-                        switch (strName){
+                        switch (strName) {
                             case "Choose from gallery":
 
                                 break;
@@ -199,30 +243,17 @@ public class UserFragment extends Fragment {
             }
         });
 
+        this.btnGoToWork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=44.1485056,12.2333975&mode=d") );
+                intent.setPackage("com.google.android.apps.maps");
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
 
-     /*   CountDownTimer t = new CountDownTimer(Long.MAX_VALUE ,10000) { // interval 1s
-
-            public void onTick(long millisUntilFinished) {
-
-                //check actual datetime and change ball imageview
-               /* MyPresenceViewModel model = new MyPresenceViewModel(getActivity().getApplication());
-
-                System.out.println(model.getAllUsers().toString());
-
-
-
-
-                /*checkVisible(ArrayList visible);// make visible button
-                checkInvisible(ArrayList invisible); // make invisible button*/
-
-            //}
-           /* public void onFinish() {
-                System.out.println("finished");
-                this.onFinish();
             }
-        }.start();*/
-
-
+        });
         return view;
     }
 
@@ -230,8 +261,77 @@ public class UserFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-          //change image with the selected from gallery
+            //change image with the selected from gallery
             // /*TODO: NOT STORE IMAGE IN DRAWABLE BECAUSE AT RUNTIME IT IS READONLY*/
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MyPresenceViewModel model1 = new MyPresenceViewModel(getActivity().getApplication());
+        UserAndStats userModel = model1.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
+
+
+        System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1).getStatus() + " " + this.user.getUsername() + " " + this.user.getPassword());
+        switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
+            case "active":
+                System.out.println("sono qui active");
+                this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
+                this.signatureImg.setImageDrawable(getActivity().getDrawable(R.drawable.cross));
+                this.labelStartTurn.setText("End your turn");
+                break;
+            case "over":
+                System.out.println("sono qui over");
+                if (checkTurnTime()) {
+                    this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.yellow_circle));
+                } else {
+                    this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                    this.signatureImg.setImageDrawable(getActivity().getDrawable(R.drawable.signature_icon));
+                }
+
+                break;
+            default:
+                System.out.println("sono qui over");
+                this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
+                this.labelStartTurn.setText("Start your turn");
+                break;
+        }
+    }
+
+    private boolean checkTurnTime() {
+        try {
+
+            String string1 = "09:00";
+            Date time1 = new SimpleDateFormat("HH:mm").parse(string1);
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(time1);
+            calendar1.add(Calendar.DATE, 1);
+
+
+            String string2 = "18:00";
+            Date time2 = new SimpleDateFormat("HH:mm").parse(string2);
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(time2);
+            calendar2.add(Calendar.DATE, 1);
+
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat dateformat = new SimpleDateFormat("HH:mm");  //it will give you the date in the formate that is given in the image
+            String datetime = dateformat.format(c.getTime()); // it will give you the date
+            System.out.println(datetime);
+
+
+            Date d = new SimpleDateFormat("HH:mm").parse(datetime);
+            Calendar calendar3 = Calendar.getInstance();
+            calendar3.setTime(d);
+            calendar3.add(Calendar.DATE, 1);
+            if (calendar3.getTime().after(calendar1.getTime()) && calendar3.getTime().before(calendar2.getTime())) {
+                return true;
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

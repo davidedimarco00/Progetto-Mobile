@@ -26,6 +26,10 @@ public class MyPresenceViewModel extends AndroidViewModel {
 
     public List<User> getAllUsers(){return this.users;}
 
+    public void updateDateInfo(DateInfo dateInfo) {
+        this.userRepo.updateDateInfo(dateInfo);
+    }
+
     public void addUser(final User user){this.userRepo.addUser(user);}
 
     public List<User> getUserFromUsernameAndPassword(String username, String password){

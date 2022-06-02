@@ -123,4 +123,5 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="start_you_turn">Start you Turn</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 </resources>
