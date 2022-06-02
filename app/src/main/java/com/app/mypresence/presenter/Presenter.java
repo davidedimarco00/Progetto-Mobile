@@ -26,6 +26,11 @@ public class Presenter implements PresenterInterface {
     }
 
     @Override
+    public void showActionBar() {
+        Objects.requireNonNull(this.activity.getSupportActionBar()).show();
+    }
+
+    @Override
     public Context getActivityContext() {
         return this.activity;
     }

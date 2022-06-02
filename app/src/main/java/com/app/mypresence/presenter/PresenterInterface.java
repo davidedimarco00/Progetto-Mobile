@@ -8,5 +8,7 @@ import com.app.mypresence.view.LoginActivity;
 public interface PresenterInterface {
     void hideActionBar();
 
+    void showActionBar();
+
     Context getActivityContext();
 }
