@@ -97,6 +97,7 @@ public class StatisticsFragment extends Fragment {
         MyPresenceViewModel mpvm = new MyPresenceViewModel(this.getActivity().getApplication());
 
         Runnable statsThread1 = () -> {
+
             int workedHoursThisMonth = mpvm.totalWorkedHoursThisMonth(username, password);
             TextView totalWorkedHours = this.getView().findViewById(R.id.numberTotWorkedHours);
             totalWorkedHours.setText(String.valueOf(workedHoursThisMonth));

@@ -16,7 +16,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kotlin.Pair;
 
@@ -177,21 +179,34 @@ public class UserRepository {
         return time > 9 ? String.valueOf(time) : "0" +  String.valueOf(time);
     }
 
-    public List<String> getMonthStatus(final String username, final String password, final int month){
+    public Map<String, List<Long>> getMonthStatus(final String username, final String password, final int month){
         List<UserAndStats> userAndStats = this.userDAO.getUserStats(username, password);
-        List<String> userStatusesOnMonth = new ArrayList<>();
+
+        Map<String, List<Long>> map = new HashMap<>();
         for(DateInfo info : userAndStats.get(0).stats){
             if(info.getDate().getMonth() == month){
                 if(info.getWorkedHours() < 6){
-                    userStatusesOnMonth.add("red");
+                    if(map.get("red") == null){
+                        map.put("red", new ArrayList<>());
+                    }else{
+                        map.get("red").add(info.getDate().getTime());
+                    }
                 }else if(info.getWorkedHours() >=6 && info.getWorkedHours() <= 8){
-                    userStatusesOnMonth.add("green");
+                    if(map.get("green") == null){
+                        map.put("green", new ArrayList<>());
+                    }else{
+                        map.get("green").add(info.getDate().getTime());
+                    }
                 }else{
-                    userStatusesOnMonth.add("black");
+                    if(map.get("black") == null){
+                        map.put("black", new ArrayList<>());
+                    }else{
+                        map.get("black").add(info.getDate().getTime());
+                    }
                 }
             }
         }
-        return userStatusesOnMonth;
+        return map;
     }
 
 }

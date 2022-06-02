@@ -10,6 +10,7 @@ import com.app.mypresence.model.database.user.User;
 import com.app.mypresence.model.database.user.UserRepository;
 
 import java.util.List;
+import java.util.Map;
 
 import kotlin.Pair;
 
@@ -68,7 +69,7 @@ public class MyPresenceViewModel extends AndroidViewModel {
         return this.userRepo.latestLeave(username, password);
     }
 
-    public List<String> getMonthStatus(final String username, final String password, final int month){
+    public Map<String, List<Long>> getMonthStatus(final String username, final String password, final int month){
         return this.userRepo.getMonthStatus(username, password, month);
     }
 
