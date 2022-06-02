@@ -177,4 +177,21 @@ public class UserRepository {
         return time > 9 ? String.valueOf(time) : "0" +  String.valueOf(time);
     }
 
+    public List<String> getMonthStatus(final String username, final String password, final int month){
+        List<UserAndStats> userAndStats = this.userDAO.getUserStats(username, password);
+        List<String> userStatusesOnMonth = new ArrayList<>();
+        for(DateInfo info : userAndStats.get(0).stats){
+            if(info.getDate().getMonth() == month){
+                if(info.getWorkedHours() < 6){
+                    userStatusesOnMonth.add("red");
+                }else if(info.getWorkedHours() >=6 && info.getWorkedHours() <= 8){
+                    userStatusesOnMonth.add("green");
+                }else{
+                    userStatusesOnMonth.add("black");
+                }
+            }
+        }
+        return userStatusesOnMonth;
+    }
+
 }

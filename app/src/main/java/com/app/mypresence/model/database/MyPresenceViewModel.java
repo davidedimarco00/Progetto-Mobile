@@ -68,4 +68,8 @@ public class MyPresenceViewModel extends AndroidViewModel {
         return this.userRepo.latestLeave(username, password);
     }
 
+    public List<String> getMonthStatus(final String username, final String password, final int month){
+        return this.userRepo.getMonthStatus(username, password, month);
+    }
+
 }
