@@ -3,6 +3,7 @@ package com.app.mypresence.view;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.metrics.Event;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,18 +15,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.mypresence.R;
 import com.app.mypresence.model.StatisticsContainer;
+import com.app.mypresence.model.database.Converters;
 import com.app.mypresence.model.database.DateInfo;
 import com.app.mypresence.model.database.MyPresenceViewModel;
 import com.app.mypresence.model.database.UserAndStats;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import kotlin.Pair;
 
@@ -42,6 +49,8 @@ public class StatisticsFragment extends Fragment {
     private static final String ARG_PARAM1 = "username";
     private static final String ARG_PARAM2 = "password";
     private RecyclerView recyclerView;
+    private CompactCalendarView calendarView;
+
 
     // TODO: Rename and change types of parameters
     private String username;
@@ -88,10 +97,28 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        this.calendarView = (CompactCalendarView) view.findViewById(R.id.compactcalendar);
+
+        List<Event> listEvent = new ArrayList<Event>();
+
+        Map<String, List<Long>> mapList =
+
+
+        this.calendarView.setOn
+
+
+
+
+
+
+
+
+
         this.setView(getActivity());
     }
 
-    private void setView(final Activity activity){
+    private void setView(final Activity activity) {
 
 
         MyPresenceViewModel mpvm = new MyPresenceViewModel(this.getActivity().getApplication());
@@ -128,8 +155,6 @@ public class StatisticsFragment extends Fragment {
             latestLeave.setText(latestLeaveTime);
         };
         statsThread3.run();
-
-
     }
 
 

@@ -48,6 +48,7 @@ dependencies {
     implementation 'androidx.room:room-common:2.3.0'
     implementation 'androidx.room:room-runtime:2.3.0'
     implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 
     implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.13.2'

@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.StatisticsFragment">
 
-
-
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -361,11 +358,23 @@
 
         </TableRow>
 
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            android:id="@+id/compactcalendar"
+            android:layout_width="fill_parent"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_height="250dp"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextSize="12sp"
+            app:compactCalendarTextColor="#fff"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
+            app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
+            app:compactCalendarMultiEventIndicatorColor="#fff"
+            />
 
-        <CalendarView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+
+
+
     </TableLayout>
 
 
