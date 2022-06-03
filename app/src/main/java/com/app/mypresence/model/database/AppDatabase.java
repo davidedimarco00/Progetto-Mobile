@@ -134,7 +134,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static void prepopulateDBwithDateInfo(){
         executor.execute(() -> {
             UserDAO uDao = AppDatabase.INSTANCE.userDAO();
-            List<DateInfo> dates = generateDatesForMonth(1, 30, 4, 2022);
+            List<DateInfo> dates = generateDatesForMonth(1, 16, 5, 2022);
 
             int user1ID = uDao.checkIfUsernameAndPasswordAreCorrect("scola", "scola1").get(0).getUserId();
 
