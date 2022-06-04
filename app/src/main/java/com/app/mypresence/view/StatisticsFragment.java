@@ -39,6 +39,7 @@ import org.w3c.dom.Text;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -160,10 +161,27 @@ public class StatisticsFragment extends Fragment {
                 AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
 
-                builderSingle.setView(R.layout.custom_dialog);
+                String date = dateClicked.toString();
+                arrayAdapter.add(date);
 
-                arrayAdapter.add("Stats1");
-                arrayAdapter.add("Stats2");
+                List<UserAndStats> uas = model.getUserStats(username, password);
+                String startShift = "No start shift on this day";
+                String endShift = "No end shift on this day";
+
+                for(DateInfo dateInfo : uas.get(0).stats){
+                    Calendar cal1 = Calendar.getInstance();
+                    Calendar cal2 = Calendar.getInstance();
+                    cal1.setTime(dateInfo.getDate());
+                    cal2.setTime(dateClicked);
+                    if(cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                            cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)){
+                        startShift = dateInfo.getStartShiftTime();
+                        endShift = dateInfo.getEndShiftTime();
+                    }
+                }
+
+                arrayAdapter.add("Start shift: " + startShift);
+                arrayAdapter.add("End shift: " + endShift);
                 builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

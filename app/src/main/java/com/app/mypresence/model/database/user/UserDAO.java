@@ -51,6 +51,7 @@ public interface UserDAO {
     @Query("SELECT * FROM user, dateinfo WHERE user.username=:username AND user.password=:password")
     List<UserAndStats> getUserStats(final String username, final String password);
 
+
     @Transaction
     @Query("UPDATE user SET bio=:bio WHERE username=:username AND password=:password")
     void updateUserBio(final String username, final String password, final String bio);

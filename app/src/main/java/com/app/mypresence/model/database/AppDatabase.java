@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Database(entities = {User.class, DateInfo.class}, version = 18)
+@Database(entities = {User.class, DateInfo.class}, version = 20)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -137,7 +137,7 @@ public abstract class AppDatabase extends RoomDatabase {
             List<DateInfo> dates = generateDatesForMonth(1, 16, 5, 2022);
 
             int user1ID = uDao.checkIfUsernameAndPasswordAreCorrect("scola", "scola1").get(0).getUserId();
-
+            CalendarBuilder cb = new CalendarBuilder();
             for(DateInfo date:dates){
                 date.userOwnerOfStat = user1ID;
                 uDao.addDateInfo(date);
