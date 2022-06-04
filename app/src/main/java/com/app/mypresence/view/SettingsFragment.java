@@ -1,5 +1,7 @@
 package com.app.mypresence.view;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,6 +28,8 @@ public class SettingsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private SharedPreferences sharedPreferences;
+
     public SettingsFragment() {
         // Required empty public constructor
     }
@@ -39,6 +43,9 @@ public class SettingsFragment extends Fragment {
      * @return A new instance of fragment SettingsFragment.
      */
     // TODO: Rename and change types and number of parameters
+
+
+
     public static SettingsFragment newInstance(String param1, String param2) {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
@@ -54,13 +61,24 @@ public class SettingsFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            this.sharedPreferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+
+
+
+
+
+
+        return view;
     }
 }

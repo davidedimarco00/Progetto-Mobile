@@ -147,8 +147,6 @@ public class UserFragment extends Fragment {
             this.user = (User) this.bundle.get("user");
 
             this.model = new MyPresenceViewModel(getActivity().getApplication());
-
-
             Log.e("user", this.user.toString());
 
             this.txtUsername.setText(name + " " + surname);
@@ -248,9 +246,9 @@ public class UserFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=44.1485056,12.2333975&mode=d") );
                 intent.setPackage("com.google.android.apps.maps");
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+              // if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivity(intent);
-                }
+              //  }
 
             }
         });
@@ -271,8 +269,6 @@ public class UserFragment extends Fragment {
         super.onResume();
         MyPresenceViewModel model1 = new MyPresenceViewModel(getActivity().getApplication());
         UserAndStats userModel = model1.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
-
-
         System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1).getStatus() + " " + this.user.getUsername() + " " + this.user.getPassword());
         switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
             case "active":
@@ -285,11 +281,13 @@ public class UserFragment extends Fragment {
                 System.out.println("sono qui over");
                 if (checkTurnTime()) {
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.yellow_circle));
+                    this.signatureImg.setImageDrawable(getActivity().getDrawable(R.drawable.signature_icon));
+                    this.labelStartTurn.setText("Start your turn");
                 } else {
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
                     this.signatureImg.setImageDrawable(getActivity().getDrawable(R.drawable.signature_icon));
+                    this.labelStartTurn.setText("End your turn");
                 }
-
                 break;
             default:
                 System.out.println("sono qui over");
@@ -298,6 +296,7 @@ public class UserFragment extends Fragment {
                 break;
         }
     }
+
 
     private boolean checkTurnTime() {
         try {

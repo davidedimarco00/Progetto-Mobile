@@ -52,7 +52,7 @@ public class UserActivity extends AppCompatActivity {
                 userFragment.setArguments(intent.getExtras());
                 this.presenter.showUserFragment(userFragment);
             } else {
-                this.presenter.showAdminFragment(adminFragment);
+                //this.presenter.showAdminFragment(adminFragment);
             }
         }
 

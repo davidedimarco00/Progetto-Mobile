@@ -6,85 +6,280 @@
     android:layout_height="match_parent"
     tools:context=".view.StatisticsFragment">
 
-    <TableLayout
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_anchor="@+id/linearLayoutCompat"
+        app:layout_anchorGravity="center">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="218dp"
             android:background="@drawable/purple_bg">
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="249dp"
                 android:layout_height="84dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_medium"
+                android:shadowDx="32"
                 android:text="Settings"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:shadowDx="32"
                 android:textSize="32dp" />
         </FrameLayout>
 
-        <TableRow>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="80dp"
+            android:textColor="@color/purple_500"
+            app:cardCornerRadius="11dp"
+            app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="false">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="78dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:elevation="80dp"
-                android:textColor="@color/purple_500"
-                app:cardCornerRadius="11dp"
-                app:cardElevation="10dp"
-                app:cardPreventCornerOverlap="false">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Auto login"
+                    android:textColor="@color/blue"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:backgroundTint="@color/black" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="80dp"
+            android:textColor="@color/purple_500"
+            app:cardCornerRadius="11dp"
+            app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="false">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Change Bio"
+                    android:textColor="@color/blue"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/totWorkedHours"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/bio_input"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/username_icon"
+                        android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Auto login"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/blue"
-                        android:textSize="22dp"
-                        android:textStyle="bold" />
+                        android:hint="Bio..."
+                        android:inputType="text"
+                        android:maxEms="50"
+                        android:maxLines="1"
+                        android:paddingLeft="17dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:textCursorDrawable="@drawable/cursor_color"
+                        android:textSize="12sp" />
 
-                    <Switch
-                        android:id="@+id/switch1"
+                    <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:backgroundTint="@color/black"
-                        />
+                        android:background="@drawable/purple_border_rounded_cornwe"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Save" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="80dp"
+            android:textColor="@color/purple_500"
+            app:cardCornerRadius="11dp"
+            app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="false">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Profile photo"
+                    android:textColor="@color/blue"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins_regular"
+                        android:src="@drawable/davidedimarco" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/purple_border_rounded_cornwe"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Change" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="80dp"
+            android:textColor="@color/purple_500"
+            app:cardCornerRadius="11dp"
+            app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="false">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Your Documents"
+                    android:textColor="@color/blue"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/card_border"
+                    android:padding="20dp"
+                    android:src="@drawable/icon_id_card" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Identity Card"
+                    android:textAlignment="center" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/card_border"
+                    android:padding="20dp"
+                    android:src="@drawable/completed_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="CF"
+                    android:textAlignment="center" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="80dp"
+            android:textColor="@color/purple_500"
+            app:cardCornerRadius="11dp"
+            app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="false">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
 
 
 
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:elevation="80dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Log out"
+            android:textAlignment="center" />
 
 
 
-        </TableRow>
-
-
-
-
-
-
-
-    </TableLayout>
-
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
