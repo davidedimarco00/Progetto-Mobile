@@ -179,6 +179,10 @@ public class UserRepository {
         return time > 9 ? String.valueOf(time) : "0" +  String.valueOf(time);
     }
 
+    public void updateUserBio(final String username, final String password, final String biog){
+        this.userDAO.updateUserBio(username, password, biog);
+    }
+
     public Map<String, List<Long>> getMonthStatus(final String username, final String password, final int month){
         List<UserAndStats> userAndStats = this.userDAO.getUserStats(username, password);
 

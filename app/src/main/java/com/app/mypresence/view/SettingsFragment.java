@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.app.mypresence.R;
+import com.app.mypresence.model.database.MyPresenceViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,10 +26,10 @@ public class SettingsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private MyPresenceViewModel mpvm;
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String username;
+    private String password;
 
     private SharedPreferences sharedPreferences;
 
@@ -58,9 +61,10 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mpvm = new MyPresenceViewModel(getActivity().getApplication());
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString(ARG_PARAM1);
+            password = getArguments().getString(ARG_PARAM2);
             this.sharedPreferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
         }
 
@@ -74,7 +78,18 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
 
-
+        Button saveBtn = view.findViewById(R.id.saveBtn);
+        EditText bio = view.findViewById(R.id.bio_input);
+        String actualBio = this.mpvm.getUserFromUsernameAndPassword(this.username, this.password).get(0).getBio();
+        bio.setText(actualBio);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String information = bio.getText().toString();
+                System.out.println(information + " =? " + mpvm.getUserFromUsernameAndPassword(username, password).get(0).getBio());
+                mpvm.updateUserBio(username, password, information);
+            }
+        });
 
 
 

@@ -26,7 +26,7 @@ public class UserActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     UserFragment userFragment = new UserFragment();
     StatisticsFragment statisticsFragment;
-    SettingsFragment settingsFragment = new SettingsFragment() ;
+    SettingsFragment settingsFragment;
     AdminFragment adminFragment = new AdminFragment();
 
 
@@ -41,7 +41,7 @@ public class UserActivity extends AppCompatActivity {
         String username = infoUser.getString("username");
         String password = infoUser.getString("password");
 
-
+        this.settingsFragment = SettingsFragment.newInstance(username, password);
         this.statisticsFragment = StatisticsFragment.newInstance(username, password);
         /*TODO*/
         Intent intent = getIntent();

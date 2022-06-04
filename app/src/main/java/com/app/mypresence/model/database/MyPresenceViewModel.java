@@ -61,6 +61,10 @@ public class MyPresenceViewModel extends AndroidViewModel {
         return this.userRepo.mostWorkedHoursInDay(username, password);
     }
 
+    public void updateUserBio(final String username, final String password, final String bio){
+        this.userRepo.updateUserBio(username, password, bio);
+    }
+
     public String earliestArrival(final String username, final String password){
         return this.userRepo.earliestArrival(username, password);
     }

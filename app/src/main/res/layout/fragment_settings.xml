@@ -123,6 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
+                        android:id="@+id/saveBtn"
                         android:background="@drawable/purple_border_rounded_cornwe"
                         android:fontFamily="@font/poppins_medium"
                         android:text="Save" />

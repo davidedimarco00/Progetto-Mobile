@@ -67,7 +67,7 @@ public abstract class AppDatabase extends RoomDatabase {
             UserDAO uDao = INSTANCE.userDAO();
             uDao.deleteAll();
             User user = new User("Davide", "Di Marco", "dima", "Mi chiamo Davide Di Marco","dima1","./", false, "Project Manager Associate");
-            User user2 = new User("Stefano", "Scolari", "scola", "I'm the principal SWE working on a new project.","scola1","./", false, "Software Engineer");
+            User user2 = new User("Stefano", "Scolari", "scola", "Principal SWE","scola1","./", false, "Software Engineer");
             uDao.addUser(user);
             uDao.addUser(user2);
         });

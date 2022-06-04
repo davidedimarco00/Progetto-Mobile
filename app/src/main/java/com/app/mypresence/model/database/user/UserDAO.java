@@ -52,6 +52,10 @@ public interface UserDAO {
     List<UserAndStats> getUserStats(final String username, final String password);
 
     @Transaction
+    @Query("UPDATE user SET bio=:bio WHERE username=:username AND password=:password")
+    void updateUserBio(final String username, final String password, final String bio);
+
+    @Transaction
     @Query("SELECT matrice FROM user WHERE user.username=:username AND user.password=:password LIMIT 1")
     String getMatrice(final String username,final String password);
 

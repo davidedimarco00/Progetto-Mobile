@@ -68,7 +68,7 @@ public class UserFragment extends Fragment {
     /**/
 
     private TextView txtUsername;
-    /*private TextView txtBio;*/
+    private TextView txtBio;
     private TextView txtRole;
     private TextView labelStartTurn;
 
@@ -111,6 +111,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.model = new MyPresenceViewModel(getActivity().getApplication());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -130,7 +131,7 @@ public class UserFragment extends Fragment {
             this.btnStartTurn = view.findViewById(R.id.btnStartTurn);
             this.btnLoadDoc = view.findViewById(R.id.btnLoadDoc);
             this.signatureImg = view.findViewById(R.id.signatureIcon);
-            //this.txtBio = view.findViewById(R.id.txtBio1);
+            this.txtBio = view.findViewById(R.id.txtBio1);
             this.txtRole = view.findViewById(R.id.txtRole);
             this.ballImg = view.findViewById(R.id.imgBall);
             this.labelStartTurn = view.findViewById(R.id.labelStartYourTurn);
@@ -142,7 +143,9 @@ public class UserFragment extends Fragment {
 
             String name = this.bundle.getString("name");
             String surname = this.bundle.getString("surname");
-            String bio = this.bundle.getString("userBio");
+            String password = this.bundle.getString("password");
+            String username = this.bundle.getString("username");
+            String bio = this.model.getUserFromUsernameAndPassword(username, password).get(0).getBio();
             String role = this.bundle.getString("userRole");
             this.user = (User) this.bundle.get("user");
 
@@ -150,7 +153,7 @@ public class UserFragment extends Fragment {
             Log.e("user", this.user.toString());
 
             this.txtUsername.setText(name + " " + surname);
-            //this.txtBio.setText(bio);
+            this.txtBio.setText(bio);
             this.txtRole.setText(role);
 
             int id = getResources().getIdentifier((name + surname)
@@ -270,6 +273,7 @@ public class UserFragment extends Fragment {
         MyPresenceViewModel model1 = new MyPresenceViewModel(getActivity().getApplication());
         UserAndStats userModel = model1.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
         System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1).getStatus() + " " + this.user.getUsername() + " " + this.user.getPassword());
+
         switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
             case "active":
                 System.out.println("sono qui active");
