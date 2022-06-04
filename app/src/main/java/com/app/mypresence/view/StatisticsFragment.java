@@ -1,12 +1,14 @@
 package com.app.mypresence.view;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
@@ -116,7 +119,7 @@ public class StatisticsFragment extends Fragment {
 
         List<Event> listEvent = new ArrayList<Event>();
 
-        Map<String, List<Long>> mapList = model.getMonthStatus(this.username, this.password, 4);
+        Map<String, List<Long>> mapList = model.getMonthStatus(this.username, this.password, 5);
 
         /*Event ev1 = new Event(Color.BLACK, 1477040400000L, "Teachers' Professional Day");
         compactCalendar.addEvent(ev1);*/
@@ -153,6 +156,37 @@ public class StatisticsFragment extends Fragment {
             public void onDayClick(Date dateClicked) {
                 Animation myAnim = AnimationUtils.loadAnimation(getActivity(), androidx.preference.R.anim.abc_fade_in);
                 calendarView.startAnimation(myAnim);
+
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
+
+                builderSingle.setView(R.layout.custom_dialog);
+
+                arrayAdapter.add("Stats1");
+                arrayAdapter.add("Stats2");
+                builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        switch (strName) {
+                            case "Choose from gallery":
+
+                                break;
+                            case "Take a picture":
+                               /* Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(cameraIntent, );*/
+                                break;
+                        }
+                    }
+                });
+                builderSingle.show();
+
             }
 
             @Override
