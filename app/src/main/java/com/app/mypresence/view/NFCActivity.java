@@ -42,7 +42,6 @@ import java.util.List;
 public class NFCActivity extends AppCompatActivity {
 
     private NFCPresenterInterface presenter;
-
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
     private Vibrator myVib;  //vibration feedback
@@ -73,7 +72,7 @@ public class NFCActivity extends AppCompatActivity {
         this.myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         this.pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
-                        .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+                        .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_MUTABLE);
     }
 
     @Override
@@ -138,11 +137,8 @@ public class NFCActivity extends AppCompatActivity {
 
 
                     Log.e("statusPrima", user.stats.get(user.stats.size()-1).getStatus());
-
                     user.stats.get(user.stats.size() - 1).setStatus("over");
-
                     user.stats.get(user.stats.size() -1).setEndShiftTime(this.getCurrentTime());
-
                     this.mpvm.updateDateInfo(user.stats.get(user.stats.size() - 1));
 
                     Log.e("dateinfo", user.stats.get(user.stats.size()-1).getDate().toString());
@@ -157,9 +153,10 @@ public class NFCActivity extends AppCompatActivity {
 
         }else{
             Toast.makeText(this, "NFC scanner is not authorized", Toast.LENGTH_SHORT).show();
+
         }
-        this.myVib.vibrate(100);
-        this.finishActivity(0);
+        this.myVib.vibrate(500);
+        this.finish();
 
         //here must exit from activity after saving the arrival time into database.
 

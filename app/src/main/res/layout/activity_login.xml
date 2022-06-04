@@ -62,6 +62,8 @@
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp" />
 
+
+
             <!-- ICON -->
             <ImageView
                 android:id="@+id/username_icon"

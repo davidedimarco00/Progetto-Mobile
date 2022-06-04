@@ -9,7 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,12 +26,19 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox checkBox;
     EditText usernameText;
     EditText passwordText;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Login");
+        progressDialog.setProgress(10);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Loading...");
+
         this.presenter  = new LoginPresenter(this);
 
         presenter.hideActionBar();
@@ -41,23 +52,41 @@ public class LoginActivity extends AppCompatActivity {
             String username = usernameText.getText().toString();
             String password = passwordText.getText().toString();
 
+
             Runnable loginThread = () -> {
                     if (this.presenter.login(password, username)){
                         if (checkBox.isChecked()){
                             presenter.rememberLogin();
                         }
+                        new MyTask().execute();
                         presenter.startUserActivity();
                     }else{
                         Toast.makeText(this, "Wrong credentials", Toast.LENGTH_SHORT).show();
                     }
                 AppDatabase.prepopulateDBwithDateInfo();
             };
-
             loginThread.run();
-
-
         });
+
+        this.passwordText.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                passwordText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                return true;
+            }
+        });
+
 
     }
 
+    public class MyTask extends AsyncTask<Void, Void, Void> {
+        public void onPreExecute() {
+            progressDialog.show();
+        }
+        public Void doInBackground(Void... unused) {
+            return null;
+        }
+    }
 }
+
+

@@ -22,7 +22,7 @@ public class SplashScreen extends AppCompatActivity {
         if (!presenter.checkForAutomaticLogin()) {
             presenter.startLoginActivity(LoginActivity.class, handler);
         } else {
-            presenter.startLoginActivity(LoginActivity.class, handler);
+            presenter.startUserActivity(handler);
             //presenter.startUserActivity(handler); faccio così per testare il db e login
         }
     }
