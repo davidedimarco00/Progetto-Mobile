@@ -115,6 +115,7 @@ public class StatisticsFragment extends Fragment {
 
         this.calendarView = (CompactCalendarView) view.findViewById(R.id.compactcalendar);
         this.txtmonth = (TextView) view.findViewById(R.id.month_textview);
+
         calendarView.setUseThreeLetterAbbreviation(true);
         calendarView.shouldScrollMonth(true);
 

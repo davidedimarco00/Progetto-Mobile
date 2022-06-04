@@ -15,6 +15,8 @@ import android.widget.EditText;
 import com.app.mypresence.R;
 import com.app.mypresence.model.database.MyPresenceViewModel;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SettingsFragment#newInstance} factory method to
@@ -26,10 +28,15 @@ public class SettingsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
+    private static final String ARG_PARAM4 = "param4";
+
     private MyPresenceViewModel mpvm;
     // TODO: Rename and change types of parameters
     private String username;
     private String password;
+    private String name;
+    private String surname;
 
     private SharedPreferences sharedPreferences;
 
@@ -49,11 +56,13 @@ public class SettingsFragment extends Fragment {
 
 
 
-    public static SettingsFragment newInstance(String param1, String param2) {
+    public static SettingsFragment newInstance(String param1, String param2, String param3, String param4) {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, param3);
+        args.putString(ARG_PARAM4, param4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,6 +74,8 @@ public class SettingsFragment extends Fragment {
         if (getArguments() != null) {
             username = getArguments().getString(ARG_PARAM1);
             password = getArguments().getString(ARG_PARAM2);
+            name = getArguments().getString(ARG_PARAM3);
+            surname = getArguments().getString(ARG_PARAM4);
             this.sharedPreferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
         }
 
@@ -76,6 +87,13 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        CircleImageView propic = view.findViewById(R.id.profileImg);
+
+        int id = getResources().getIdentifier((name + surname)
+                .toLowerCase()
+                .replace(" ", ""), "drawable", this.getActivity().getPackageName());
+        propic.setImageResource(id);
 
 
         Button saveBtn = view.findViewById(R.id.saveBtn);

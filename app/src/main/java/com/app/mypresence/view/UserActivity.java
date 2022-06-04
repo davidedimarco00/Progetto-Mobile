@@ -40,8 +40,10 @@ public class UserActivity extends AppCompatActivity {
         Bundle infoUser = getIntent().getBundleExtra("userInfo");
         String username = infoUser.getString("username");
         String password = infoUser.getString("password");
+        String name = infoUser.getString("name");
+        String surname = infoUser.getString("surname");
 
-        this.settingsFragment = SettingsFragment.newInstance(username, password);
+        this.settingsFragment = SettingsFragment.newInstance(username, password, name, surname);
         this.statisticsFragment = StatisticsFragment.newInstance(username, password);
         /*TODO*/
         Intent intent = getIntent();

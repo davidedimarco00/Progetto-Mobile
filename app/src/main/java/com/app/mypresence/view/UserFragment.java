@@ -169,7 +169,6 @@ public class UserFragment extends Fragment {
             switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
 
                 case "active":
-                    System.out.println("sono qui active");
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
                     this.labelStartTurn.setText("Stop your turn");
                     break;
@@ -178,7 +177,6 @@ public class UserFragment extends Fragment {
                 this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
                 break;*/
                 default:
-                    System.out.println("sono qui over");
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
 
                     this.labelStartTurn.setText("Start your turn");

@@ -167,10 +167,10 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="150dp"
                         android:layout_height="150dp"
+                        android:id="@+id/profileImg"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:fontFamily="@font/poppins_regular"
-                        android:src="@drawable/davidedimarco" />
+                        android:fontFamily="@font/poppins_regular" />
 
                     <Button
                         android:layout_width="wrap_content"
