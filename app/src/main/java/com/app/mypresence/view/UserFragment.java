@@ -339,13 +339,11 @@ public class UserFragment extends Fragment {
                 System.out.println("sono qui over");
                 if (checkTurnTime()) {
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.yellow_circle));
-                    this.signatureImg.setImageDrawable(getActivity().getDrawable(R.drawable.signature_icon));
-                    this.labelStartTurn.setText("Start your turn");
                 } else {
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
-                    this.signatureImg.setImageDrawable(getActivity().getDrawable(R.drawable.signature_icon));
-                    this.labelStartTurn.setText("End your turn");
                 }
+                this.signatureImg.setImageDrawable(getActivity().getDrawable(R.drawable.signature_icon));
+                this.labelStartTurn.setText("Start your turn");
                 break;
             default:
                 System.out.println("sono qui over");
@@ -382,6 +380,7 @@ public class UserFragment extends Fragment {
             Calendar calendar3 = Calendar.getInstance();
             calendar3.setTime(d);
             calendar3.add(Calendar.DATE, 1);
+
             if (calendar3.getTime().after(calendar1.getTime()) && calendar3.getTime().before(calendar2.getTime())) {
                 return true;
             }

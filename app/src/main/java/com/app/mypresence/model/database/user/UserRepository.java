@@ -169,7 +169,7 @@ public class UserRepository {
                 }
             }
         }
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
+
         String hours = this.timeFixerFormat(maxH);
         String minutes = this.timeFixerFormat(maxMin);
         return hours + ":" + minutes;

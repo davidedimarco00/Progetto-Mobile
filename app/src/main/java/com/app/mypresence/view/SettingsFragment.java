@@ -143,6 +143,7 @@ public class SettingsFragment extends Fragment {
             if (mImageUri != null) {
 
                 idCardImage.setImageURI(Uri.parse(mImageUri));
+
             } else {
                 idCardImage.setImageResource(R.drawable.icon_id_card);
             }
@@ -152,7 +153,6 @@ public class SettingsFragment extends Fragment {
         }
 
         //CF
-
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             String mImageUri = preferences.getString("cfImage", null);

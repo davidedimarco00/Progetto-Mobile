@@ -135,7 +135,6 @@ public class NFCActivity extends AppCompatActivity {
 
                 }else{
 
-
                     Log.e("statusPrima", user.stats.get(user.stats.size()-1).getStatus());
                     user.stats.get(user.stats.size() - 1).setStatus("over");
                     user.stats.get(user.stats.size() -1).setEndShiftTime(this.getCurrentTime());
