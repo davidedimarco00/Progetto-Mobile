@@ -194,20 +194,17 @@ public class UserFragment extends Fragment {
 
             UserAndStats userModel = model.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
             System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1).getStatus() + " " + this.user.getUsername() + " " + this.user.getPassword());
-            switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
 
+            switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
                 case "active":
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.green_circle));
-                    this.labelStartTurn.setText("Stop your turn");
+                    this.labelStartTurn.setText("End your turn");
                     break;
                 case "over":
-               /* System.out.println("sono qui over");
-                this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
-                break;*/
-                default:
                     this.ballImg.setImageDrawable(getActivity().getDrawable(R.drawable.red_circle));
-
                     this.labelStartTurn.setText("Start your turn");
+                    break;
+                default:
                     break;
 
             }

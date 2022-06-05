@@ -225,6 +225,12 @@ public class StatisticsFragment extends Fragment {
         this.setView(getActivity());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.setView(getActivity());
+    }
+
     private void setView(final Activity activity) {
 
 
