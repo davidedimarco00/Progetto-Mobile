@@ -28,7 +28,7 @@ public class SplashScreenModel extends Model implements SplashScreenModelInterfa
     public boolean checkFirstLaunch() {
         SharedPreferences prefs = this.presenter.getActivityContext().getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
         boolean firstLaunch = prefs.getBoolean("firstLaunch", true);
-        Log.e("AUTO LOGIN", String.valueOf(firstLaunch)); /*JUST DEBUG*/
+       // Log.e("AUTO LOGIN", String.valueOf(firstLaunch)); /*JUST DEBUG*/
         return firstLaunch;
     }
 

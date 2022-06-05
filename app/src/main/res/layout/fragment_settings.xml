@@ -173,6 +173,7 @@
                         android:fontFamily="@font/poppins_regular" />
 
                     <Button
+                        android:id="@+id/btnChange"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -215,6 +216,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id = "@+id/idCardImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -230,6 +232,7 @@
                     android:textAlignment="center" />
 
                 <ImageView
+                    android:id = "@+id/cfCardImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -246,29 +249,9 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:elevation="80dp"
-            android:textColor="@color/purple_500"
-            app:cardCornerRadius="11dp"
-            app:cardElevation="10dp"
-            app:cardPreventCornerOverlap="false">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.cardview.widget.CardView>
 
         <Button
+            android:id = "@+id/btnLogOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

@@ -2,20 +2,31 @@ package com.app.mypresence.view;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.preference.PreferenceManager;
 
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +50,11 @@ import com.app.mypresence.model.database.user.UserDAO;
 
 import org.joda.time.DateTime;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -84,6 +100,9 @@ public class UserFragment extends Fragment {
 
     private User user;
     private MyPresenceViewModel model;
+    int SELECT_PICTURE = 200;
+    int SELECT_FROM_CAMERA = 201;
+    SharedPreferences sharedPreferences;
 
     public UserFragment() {
         // Required empty public constructor
@@ -155,16 +174,25 @@ public class UserFragment extends Fragment {
             this.txtUsername.setText(name + " " + surname);
             this.txtBio.setText(bio);
             this.txtRole.setText(role);
+            try {
 
-            int id = getResources().getIdentifier((name + surname)
-                    .toLowerCase()
-                    .replace(" ", ""), "drawable", this.getActivity().getPackageName());
-            this.imgProfile.setImageResource(id);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+                String mImageUri = preferences.getString("image", null);
+
+                if (mImageUri != null) {
+
+                    imgProfile.setImageURI(Uri.parse(mImageUri));
+                } else {
+                    imgProfile.setImageResource(R.drawable.user_icon);
+                }
+
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+
 
 
             UserAndStats userModel = model.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
-
-
             System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1).getStatus() + " " + this.user.getUsername() + " " + this.user.getPassword());
             switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
 
@@ -184,7 +212,6 @@ public class UserFragment extends Fragment {
 
             }
 
-
             Log.e("USERS", model.getAllUsers().toString());
         }
 
@@ -202,12 +229,24 @@ public class UserFragment extends Fragment {
         this.imgProfile.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Intent intentGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intentGallery, 3);
+                Intent intent;
+                if (Build.VERSION.SDK_INT < 19) {
+                    intent = new Intent();
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
 
+                } else {
+                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
 
+                }
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 3);
                 return true;
             }
+
         });
 
         this.btnLoadDoc.setOnClickListener(new View.OnClickListener() {
@@ -230,10 +269,15 @@ public class UserFragment extends Fragment {
                         switch (strName) {
                             case "Choose from gallery":
 
+                                Intent intent= new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                                startActivityForResult(intent,100);
+
+
+
                                 break;
                             case "Take a picture":
-                               /* Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(cameraIntent, );*/
+                                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(cameraIntent, 100 );
                                 break;
                         }
                     }
@@ -257,13 +301,28 @@ public class UserFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
-            //change image with the selected from gallery
-            // /*TODO: NOT STORE IMAGE IN DRAWABLE BECAUSE AT RUNTIME IT IS READONLY*/
+
+        if(requestCode==3  && resultCode==RESULT_OK) {
+            Uri uri=data.getData();
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                getActivity().getContentResolver().takePersistableUriPermission (uri, Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+            // Saves image URI as string to Default Shared Preferences
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("image", String.valueOf(uri));
+            editor.apply();
+
+            // Sets the ImageView with the Image URI
+            imgProfile.setImageURI(uri);
+            imgProfile.invalidate();
+            this.imgProfile.setImageURI(uri);
         }
     }
+
+
 
     @Override
     public void onResume() {

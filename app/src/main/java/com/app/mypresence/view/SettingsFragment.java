@@ -1,16 +1,29 @@
 package com.app.mypresence.view;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.app.mypresence.R;
 import com.app.mypresence.model.database.MyPresenceViewModel;
@@ -39,6 +52,9 @@ public class SettingsFragment extends Fragment {
     private String surname;
 
     private SharedPreferences sharedPreferences;
+    private CircleImageView propic;
+    ImageView idCardImage;
+    ImageView cfCardImage;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -88,15 +104,75 @@ public class SettingsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        CircleImageView propic = view.findViewById(R.id.profileImg);
+        propic = view.findViewById(R.id.profileImg);
+        Switch switch1 = (Switch) view.findViewById(R.id.switch1);
+        cfCardImage = (ImageView) view.findViewById(R.id.cfCardImage);
+        idCardImage = (ImageView) view.findViewById(R.id.idCardImage);
 
-        int id = getResources().getIdentifier((name + surname)
-                .toLowerCase()
-                .replace(" ", ""), "drawable", this.getActivity().getPackageName());
-        propic.setImageResource(id);
+        try {
+            SharedPreferences preferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
+            boolean loginAuto = preferences.getBoolean("loggedIn", false);
+            switch1.setChecked(loginAuto);
+        }catch (Exception ex){
+            ex.printStackTrace();
+
+        }
+
+
+
+        try {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            String mImageUri = preferences.getString("image", null);
+
+            if (mImageUri != null) {
+
+                propic.setImageURI(Uri.parse(mImageUri));
+            } else {
+                propic.setImageResource(R.drawable.user_icon);
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        //ID CARD
+        try {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            String mImageUri = preferences.getString("idImage", null);
+
+            if (mImageUri != null) {
+
+                idCardImage.setImageURI(Uri.parse(mImageUri));
+            } else {
+                idCardImage.setImageResource(R.drawable.icon_id_card);
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        //CF
+
+        try {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            String mImageUri = preferences.getString("cfImage", null);
+
+            if (mImageUri != null) {
+
+                cfCardImage.setImageURI(Uri.parse(mImageUri));
+            } else {
+                cfCardImage.setImageResource(R.drawable.icon_id_card);
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
 
 
         Button saveBtn = view.findViewById(R.id.saveBtn);
+        Button changeBtn = view.findViewById(R.id.btnChange);
+        Button logOuuBtn = view.findViewById(R.id.btnLogOut);
+
         EditText bio = view.findViewById(R.id.bio_input);
         String actualBio = this.mpvm.getUserFromUsernameAndPassword(this.username, this.password).get(0).getBio();
         bio.setText(actualBio);
@@ -106,12 +182,163 @@ public class SettingsFragment extends Fragment {
                 String information = bio.getText().toString();
                 System.out.println(information + " =? " + mpvm.getUserFromUsernameAndPassword(username, password).get(0).getBio());
                 mpvm.updateUserBio(username, password, information);
+                Toast.makeText(getContext(), "Bio Updated!", Toast.LENGTH_SHORT).show();
+
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(bio.getWindowToken(),
+                        InputMethodManager.RESULT_UNCHANGED_SHOWN);
             }
         });
 
+        changeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                if (Build.VERSION.SDK_INT < 19) {
+                    intent = new Intent();
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
 
+                } else {
+                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
 
+                }
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 3);
+            }
+        });
 
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+            }
+        });
+
+        idCardImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                if (Build.VERSION.SDK_INT < 19) {
+                    intent = new Intent();
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+
+                } else {
+                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
+
+                }
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 4);
+
+            }
+        });
+
+        cfCardImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                if (Build.VERSION.SDK_INT < 19) {
+                    intent = new Intent();
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+
+                } else {
+                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
+
+                }
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 5);
+
+            }
+        });
+
+        logOuuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences preferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("loggedIn", false);
+                editor.apply();
+
+                Intent intentToLogin = new Intent(getActivity().getBaseContext(), LoginActivity.class);
+                startActivity(intentToLogin);
+                Toast.makeText(getContext(), "Looged auto succesfully!", Toast.LENGTH_SHORT).show();
+
+                getActivity().finish();
+
+            }
+        });
         return view;
+
+
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //PROFILE PHOTO
+        if(requestCode==3  && resultCode==RESULT_OK) {
+            Uri uri=data.getData();
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                getActivity().getContentResolver().takePersistableUriPermission (uri, Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+            // Saves image URI as string to Default Shared Preferences
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("image", String.valueOf(uri));
+            editor.apply();
+            propic.setImageURI(uri);
+            propic.invalidate();
+            propic.setImageURI(uri);
+        }
+
+        //ID CARD
+        if(requestCode==4  && resultCode==RESULT_OK) {
+            Uri uri=data.getData();
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                getActivity().getContentResolver().takePersistableUriPermission (uri, Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+            // Saves image URI as string to Default Shared Preferences
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("idImage", String.valueOf(uri));
+            editor.apply();
+            idCardImage.setImageURI(uri);
+            idCardImage.invalidate();
+            idCardImage.setImageURI(uri);
+        }
+
+        //CF
+
+        if(requestCode==5  && resultCode==RESULT_OK) {
+            Uri uri=data.getData();
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                getActivity().getContentResolver().takePersistableUriPermission (uri, Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+            // Saves image URI as string to Default Shared Preferences
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("cfImage", String.valueOf(uri));
+            editor.apply();
+            cfCardImage.setImageURI(uri);
+            cfCardImage.invalidate();
+            cfCardImage.setImageURI(uri);
+        }
+
+
     }
 }

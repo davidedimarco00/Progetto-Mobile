@@ -11,12 +11,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -47,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         usernameText = (EditText) findViewById(R.id.username_input);
         passwordText = (EditText) findViewById(R.id.pass_input);
 
+
+
         loginButton.setOnClickListener(view -> {
 
             String username = usernameText.getText().toString();
@@ -75,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
 
     }
