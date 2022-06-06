@@ -48,13 +48,15 @@ public class UserActivity extends AppCompatActivity {
         /*TODO*/
         Intent intent = getIntent();
         boolean isAdmin = intent.getBundleExtra("userInfo").getBoolean("isAdmin");
+        Log.e("Admin?", String.valueOf(isAdmin));
         if (savedInstanceState == null) {
             if (!isAdmin) {
                 Log.e("bundle", intent.getExtras().toString());
                 userFragment.setArguments(intent.getExtras());
-                this.presenter.showUserFragment(userFragment);
+                //this.presenter.showUserFragment(userFragment); //questa linea va decommentata
+                 this.presenter.showAdminFragment(adminFragment); //questa linea è solo per test
             } else {
-                //this.presenter.showAdminFragment(adminFragment);
+              //  this.presenter.showAdminFragment(adminFragment); //questa linea è da decommentare
             }
         }
 

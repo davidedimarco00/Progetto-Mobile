@@ -3,12 +3,22 @@ package com.app.mypresence.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.app.mypresence.R;
+import com.app.mypresence.model.ClickListener;
+import com.app.mypresence.model.RecyclerViewAdapter;
+import com.app.mypresence.model.UserCard;
+import com.app.mypresence.model.database.user.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,10 +31,14 @@ public class AdminFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private List<UserCard> listUserCard = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerViewAdapter recyclerViewAdapter;
+    RecyclerView recyclerView;
 
     public AdminFragment() {
         // Required empty public constructor
@@ -61,6 +75,26 @@ public class AdminFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_admin, container, false);
+        prepareMovie();
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerViewAdapter = new RecyclerViewAdapter(listUserCard);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerViewAdapter.setOnItemClickListener(new ClickListener<UserCard>() {
+            @Override
+            public void onItemClick(UserCard data) {
+                Toast.makeText(getActivity(), data.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+        return view;
+    }
+
+    private void prepareMovie(){
+        UserCard movie = new UserCard("Davide","Di marco", null);
+        this.listUserCard.add(movie);
     }
 }

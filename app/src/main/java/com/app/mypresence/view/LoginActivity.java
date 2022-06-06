@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (checkBox.isChecked()){
                             presenter.rememberLogin();
                         }
-                        new MyTask().execute();
+                        new MyTask().execute(); //this task show the progress dialog
                         presenter.startUserActivity();
                     }else{
                         Toast.makeText(this, "Wrong credentials", Toast.LENGTH_SHORT).show();
