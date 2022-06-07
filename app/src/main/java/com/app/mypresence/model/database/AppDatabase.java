@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Database(entities = {User.class, DateInfo.class}, version = 21)
+@Database(entities = {User.class, DateInfo.class}, version = 22)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
