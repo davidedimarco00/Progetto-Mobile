@@ -73,6 +73,10 @@ public class MyPresenceViewModel extends AndroidViewModel {
         return this.userRepo.latestLeave(username, password);
     }
 
+    public void deleteAllDateInfo(){
+        this.userRepo.deleteAllDateInfo();
+    }
+
     public Map<String, List<Long>> getMonthStatus(final String username, final String password, final int month){
         return this.userRepo.getMonthStatus(username, password, month);
     }

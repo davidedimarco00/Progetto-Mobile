@@ -53,6 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         usernameText = (EditText) findViewById(R.id.username_input);
         passwordText = (EditText) findViewById(R.id.pass_input);
 
+        Runnable prepopDBThread = () -> {
+            AppDatabase.prepopulateDBwithDateInfo();
+        };
+        prepopDBThread.run();
 
 
         loginButton.setOnClickListener(view -> {
@@ -71,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(this, "Wrong credentials", Toast.LENGTH_SHORT).show();
                     }
-                AppDatabase.prepopulateDBwithDateInfo();
+
             };
             loginThread.run();
         });

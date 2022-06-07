@@ -179,6 +179,10 @@ public class UserRepository {
         return time > 9 ? String.valueOf(time) : "0" +  String.valueOf(time);
     }
 
+    public void deleteAllDateInfo(){
+        this.userDAO.deleteAllDateInfoData();
+    }
+
     public void updateUserBio(final String username, final String password, final String biog){
         this.userDAO.updateUserBio(username, password, biog);
     }

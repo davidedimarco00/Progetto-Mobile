@@ -33,6 +33,10 @@ public interface UserDAO {
     List<UserAndStats> getUsersWithStats(); //Ti ritorna oggetti in cui è presente [user e tutte le sue stat nello stesso oggetto]
 
     @Transaction
+    @Query("DELETE FROM dateinfo")
+    void deleteAllDateInfoData();
+
+    @Transaction
     @Query("SELECT * FROM user WHERE username=:username AND password=:password")
     List<User> checkIfUsernameAndPasswordAreCorrect(String username, String password);
 

@@ -193,7 +193,7 @@ public class UserFragment extends Fragment {
 
 
             UserAndStats userModel = model.getUserStats(this.user.getUsername(), this.user.getPassword()).get(0);
-            System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1).getStatus() + " " + this.user.getUsername() + " " + this.user.getPassword());
+            //System.out.println("actualstate: " + userModel.stats.get(userModel.stats.size() - 1).getStatus() + " " + this.user.getUsername() + " " + this.user.getPassword());
 
             switch (userModel.stats.get(userModel.stats.size() - 1).getStatus()) {
                 case "active":
