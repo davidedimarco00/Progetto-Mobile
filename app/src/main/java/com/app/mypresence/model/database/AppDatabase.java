@@ -66,7 +66,7 @@ public abstract class AppDatabase extends RoomDatabase {
         executor.execute(() -> {
             UserDAO uDao = INSTANCE.userDAO();
             uDao.deleteAll();
-            User user = new User("Davide", "Di Marco", "dima", "PMA","dima1","./", false, "Project Manager Associate");
+            User user = new User("Davide", "Di Marco", "dima", "PMA","dima1","./", true, "Project Manager Associate");
             User user2 = new User("Stefano", "Scolari", "scola", "Principal SWE","scola1","./", false, "Software Engineer");
             User user3 = new User("Lorenzo", "Miccoli", "lore", "HR Manager","miccoli1","./", false, "I'm an HR guy.");
             User user4 = new User("Chiara", "Cubeddu", "chia", "IT Specialist","cubeddu1","./", false, "IT Specialist :)");
