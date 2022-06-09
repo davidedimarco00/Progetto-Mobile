@@ -65,6 +65,8 @@ public class MyPresenceViewModel extends AndroidViewModel {
         this.userRepo.updateUserBio(username, password, bio);
     }
 
+    public List<UserAndStats> getAllUsersAndStats(){return this.userRepo.getAllUsersAndStats();}
+
     public String earliestArrival(final String username, final String password){
         return this.userRepo.earliestArrival(username, password);
     }

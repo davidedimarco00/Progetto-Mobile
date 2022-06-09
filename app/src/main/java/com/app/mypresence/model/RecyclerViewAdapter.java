@@ -52,6 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView nameandsurname;
         private ImageView image;
         private CardView cardView;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             nameandsurname = itemView.findViewById(R.id.nameandsurname);

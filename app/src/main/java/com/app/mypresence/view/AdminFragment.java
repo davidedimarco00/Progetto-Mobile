@@ -15,6 +15,9 @@ import com.app.mypresence.R;
 import com.app.mypresence.model.ClickListener;
 import com.app.mypresence.model.RecyclerViewAdapter;
 import com.app.mypresence.model.UserCard;
+import com.app.mypresence.model.database.DateInfo;
+import com.app.mypresence.model.database.MyPresenceViewModel;
+import com.app.mypresence.model.database.UserAndStats;
 import com.app.mypresence.model.database.user.User;
 
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class AdminFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private List<UserCard> listUserCard = new ArrayList<>();
-
+    private MyPresenceViewModel mpvm;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -65,6 +68,7 @@ public class AdminFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mpvm = new MyPresenceViewModel(getActivity().getApplication());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -94,7 +98,17 @@ public class AdminFragment extends Fragment {
     }
 
     private void prepareMovie(){
-        UserCard movie = new UserCard("Davide","Di marco", null);
-        this.listUserCard.add(movie);
+
+        Runnable getUsers = () -> {
+            List<UserAndStats> users = this.mpvm.getAllUsersAndStats();
+            for(UserAndStats userAndStats : users){
+                User user = userAndStats.user;
+                List<DateInfo> dateInfos = userAndStats.stats;
+                this.listUserCard.add(new UserCard(user.getName(), user.getSurname(), null, user, dateInfos));
+            }
+        };
+
+        getUsers.run();
+
     }
 }
