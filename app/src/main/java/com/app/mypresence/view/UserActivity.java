@@ -58,6 +58,8 @@ public class UserActivity extends AppCompatActivity {
             } else {
                 adminFragment.setArguments(intent.getExtras());
                 this.presenter.showAdminFragment(adminFragment); //questa linea è da decommentare
+                this.bottomNavigationView.getMenu().clear();
+                this.bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_admin);
             }
         }
 
