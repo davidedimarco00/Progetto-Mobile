@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Database(entities = {User.class, DateInfo.class}, version = 25)
+@Database(entities = {User.class, DateInfo.class}, version = 26)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -68,10 +68,10 @@ public abstract class AppDatabase extends RoomDatabase {
             uDao.deleteAll();
             User user = new User("Davide", "Di Marco", "dima", "PMA","dima1","./", true, "Project Manager Associate");
             User user2 = new User("Stefano", "Scolari", "scola", "Principal SWE","scola1","./", false, "Software Engineer");
-            User user3 = new User("Lorenzo", "Miccoli", "lore", "HR Manager","miccoli1","./", false, "I'm an HR guy.");
-            User user4 = new User("Chiara", "Cubeddu", "chia", "IT Specialist","cubeddu1","./", false, "IT Specialist :)");
-            User user5 = new User("Giorgia", "Verdi", "gio", "ML SWE","verdi1","./", false, "I love ML");
-            User user6 = new User("Michela", "Arrigoni", "miche", "Rendering SWE","arrigoni1","./", false, "I love 3D");
+            User user3 = new User("Lorenzo", "Miccoli", "lore", "I'm an HR guy.","miccoli1","./", false, "HR Manager");
+            User user4 = new User("Chiara", "Cubeddu", "chia", "IT Specialist :)","cubeddu1","./", false, "IT Specialist");
+            User user5 = new User("Giorgia", "Verdi", "gio", "I love ML","verdi1","./", false, "Machine Learning SWE");
+            User user6 = new User("Michela", "Arrigoni", "miche", "I love 3D","arrigoni1","./", false, "Rendering SWE");
             uDao.addUser(user);
             uDao.addUser(user2);
             uDao.addUser(user3);
