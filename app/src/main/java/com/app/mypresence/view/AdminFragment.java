@@ -1,7 +1,9 @@
 package com.app.mypresence.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.app.mypresence.R;
@@ -89,7 +92,34 @@ public class AdminFragment extends Fragment {
         recyclerViewAdapter.setOnItemClickListener(new ClickListener<UserCard>() {
             @Override
             public void onItemClick(UserCard data) {
-                Toast.makeText(getActivity(), data.getName(), Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
+
+                arrayAdapter.add("Name: " + data.getName() + " " + data.getSurname());
+                arrayAdapter.add("Role: " + data.getRole());
+
+                builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        switch (strName) {
+                            case "Choose from gallery":
+                                break;
+                            case "Take a picture":
+                                break;
+                        }
+                    }
+                });
+                builderSingle.show();
+
             }
         });
         recyclerView.setAdapter(recyclerViewAdapter);

@@ -189,17 +189,15 @@ public class StatisticsFragment extends Fragment {
                         dialog.dismiss();
                     }
                 });
+
                 builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String strName = arrayAdapter.getItem(which);
                         switch (strName) {
                             case "Choose from gallery":
-
                                 break;
                             case "Take a picture":
-                               /* Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(cameraIntent, );*/
                                 break;
                         }
                     }
