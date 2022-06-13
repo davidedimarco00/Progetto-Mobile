@@ -28,6 +28,10 @@ import android.widget.Toast;
 import com.app.mypresence.R;
 import com.app.mypresence.model.database.MyPresenceViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -122,11 +126,13 @@ public class SettingsFragment extends Fragment {
 
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-            String mImageUri = preferences.getString("image", null);
+            Set<String> mImageUriSet = preferences.getStringSet(this.name, null);
 
-            if (mImageUri != null) {
+            List<String> uris = new ArrayList<>();
+            uris.addAll(mImageUriSet);
 
-                propic.setImageURI(Uri.parse(mImageUri));
+            if (uris.get(0) != null) {
+                propic.setImageURI(Uri.parse(uris.get(0)));
             } else {
                 propic.setImageResource(R.drawable.user_icon);
             }
@@ -300,12 +306,12 @@ public class SettingsFragment extends Fragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("image", String.valueOf(uri));
+            editor.putStringSet(this.name, Set.of(String.valueOf(uri)));
             editor.apply();
-            propic.setImageURI(uri);
             propic.invalidate();
             propic.setImageURI(uri);
         }
-
+/*
         //ID CARD
         if(requestCode==4  && resultCode==RESULT_OK) {
             Uri uri=data.getData();
@@ -317,7 +323,7 @@ public class SettingsFragment extends Fragment {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("idImage", String.valueOf(uri));
             editor.apply();
-            idCardImage.setImageURI(uri);
+
             idCardImage.invalidate();
             idCardImage.setImageURI(uri);
         }
@@ -332,12 +338,16 @@ public class SettingsFragment extends Fragment {
             // Saves image URI as string to Default Shared Preferences
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             SharedPreferences.Editor editor = preferences.edit();
+            editor.putStringSet(
             editor.putString("cfImage", String.valueOf(uri));
             editor.apply();
+
             cfCardImage.setImageURI(uri);
+
+
             cfCardImage.invalidate();
             cfCardImage.setImageURI(uri);
-        }
+        }*/
 
 
     }
