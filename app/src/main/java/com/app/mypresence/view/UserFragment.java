@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -174,7 +175,7 @@ public class UserFragment extends Fragment {
             this.txtUsername.setText(name + " " + surname);
             this.txtBio.setText(bio);
             this.txtRole.setText(role);
-            try {
+            /*try {
 
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
                 String mImageUri = preferences.getString("image", null);
@@ -182,6 +183,24 @@ public class UserFragment extends Fragment {
                 if (mImageUri != null) {
 
                     imgProfile.setImageURI(Uri.parse(mImageUri));
+                } else {
+                    imgProfile.setImageResource(R.drawable.user_icon);
+                }
+
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }*/
+
+
+            try {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+                Set<String> mImageUriSet = preferences.getStringSet(this.user.getName(), null);
+
+                List<String> uris = new ArrayList<>();
+                uris.addAll(mImageUriSet);
+
+                if (uris.get(0) != null) {
+                    imgProfile.setImageURI(Uri.parse(uris.get(0)));
                 } else {
                     imgProfile.setImageResource(R.drawable.user_icon);
                 }
