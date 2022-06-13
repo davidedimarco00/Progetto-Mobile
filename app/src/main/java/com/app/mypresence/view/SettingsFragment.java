@@ -121,9 +121,7 @@ public class SettingsFragment extends Fragment {
             ex.printStackTrace();
 
         }
-
-
-
+        
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             Set<String> mImageUriSet = preferences.getStringSet(this.name, null);

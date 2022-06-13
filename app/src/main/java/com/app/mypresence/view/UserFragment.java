@@ -329,11 +329,9 @@ public class UserFragment extends Fragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("image", String.valueOf(uri));
+            editor.putStringSet(this.user.getName(), Set.of(String.valueOf(uri)));
             editor.apply();
-
-            // Sets the ImageView with the Image URI
-            imgProfile.setImageURI(uri);
-            imgProfile.invalidate();
+            this.imgProfile.invalidate();
             this.imgProfile.setImageURI(uri);
         }
     }
