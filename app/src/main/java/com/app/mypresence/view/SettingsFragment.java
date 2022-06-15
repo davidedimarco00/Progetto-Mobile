@@ -152,17 +152,18 @@ public class SettingsFragment extends Fragment {
             List<String> names = new ArrayList<>();
 
             for (User u : userList) {
-                String name = u.getName().replace(" ", "");
+                String name = u.getName();
                 names.add(name);
                 Log.e("NAME: ", name);
                 Log.e("image", "SETTO IMAGE DI " + name);
-
-                String mImageUri = preferences.getString("id" + name + "Image", null);
-
-                if (mImageUri != null) {
-                    idCardImage.setImageURI(Uri.parse(mImageUri));
-                } else {
-                    idCardImage.setImageResource(R.drawable.icon_id_card);
+                if(name.equals(this.name)){
+                    String mImageUri = preferences.getString("id" + this.name + "Image", null);
+                    //Log.e("NAMEE: ", );
+                    if (mImageUri != null) {
+                        idCardImage.setImageURI(Uri.parse(mImageUri));
+                    } else {
+                        idCardImage.setImageResource(R.drawable.icon_id_card);
+                    }
                 }
             }
 
@@ -177,18 +178,21 @@ public class SettingsFragment extends Fragment {
             List<String> names = new ArrayList<>();
 
             for (User u : userList) {
-                String name = u.getName().replace(" ", "");
+                String name = u.getName();
                 names.add(name);
                 Log.e("NAME: ", name);
                 Log.e("image", "SETTO IMAGE DI " + name);
 
-                String mImageUri = preferences.getString("cf" + name + "Image", null);
+                if(name.equals(this.name)){
+                    String mImageUri = preferences.getString("cf" + this.name + "Image", null);
 
-                if (mImageUri != null) {
-                    idCardImage.setImageURI(Uri.parse(mImageUri));
-                } else {
-                    idCardImage.setImageResource(R.drawable.icon_id_card);
+                    if (mImageUri != null) {
+                        cfCardImage.setImageURI(Uri.parse(mImageUri));
+                    } else {
+                        cfCardImage.setImageResource(R.drawable.icon_id_card);
+                    }
                 }
+
             }
 
         }catch (Exception ex){
@@ -340,11 +344,13 @@ public class SettingsFragment extends Fragment {
             Uri uri=data.getData();
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 getActivity().getContentResolver().takePersistableUriPermission (uri, Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
             }
+            Log.e("VA?", "AAAAAAA");
             // Saves image URI as string to Default Shared Preferences
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("id"+ this.name.replace(" ", "") + "Image", String.valueOf(uri));
+            editor.putString("id"+ this.name + "Image", String.valueOf(uri));
             editor.apply();
             idCardImage.invalidate();
             idCardImage.setImageURI(uri);
@@ -357,10 +363,11 @@ public class SettingsFragment extends Fragment {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 getActivity().getContentResolver().takePersistableUriPermission (uri, Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             }
+            Log.e("VA?", "AAAAAAA");
             // Saves image URI as string to Default Shared Preferences
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("cf"+ this.name.replace(" ", "") + "Image", String.valueOf(uri));
+            editor.putString("cf"+ this.name + "Image", String.valueOf(uri));
             editor.apply();
 
             cfCardImage.invalidate();
