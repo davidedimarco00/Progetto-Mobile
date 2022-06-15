@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.app.mypresence.R;
 import com.app.mypresence.model.database.MyPresenceViewModel;
+import com.app.mypresence.model.database.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,6 +114,8 @@ public class SettingsFragment extends Fragment {
         cfCardImage = (ImageView) view.findViewById(R.id.cfCardImage);
         idCardImage = (ImageView) view.findViewById(R.id.idCardImage);
 
+
+
         try {
             SharedPreferences preferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
             boolean loginAuto = preferences.getBoolean("loggedIn", false);
@@ -121,7 +124,8 @@ public class SettingsFragment extends Fragment {
             ex.printStackTrace();
 
         }
-        
+
+        //PROFILE IMAGE
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             Set<String> mImageUriSet = preferences.getStringSet(this.name, null);
@@ -139,38 +143,58 @@ public class SettingsFragment extends Fragment {
             ex.printStackTrace();
         }
 
+
+
         //ID CARD
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-            String mImageUri = preferences.getString("idImage", null);
+            List<User> userList = this.mpvm.getAllUsers();
+            List<String> names = new ArrayList<>();
 
-            if (mImageUri != null) {
+            for (User u : userList) {
+                String name = u.getName().replace(" ", "");
+                names.add(name);
+                Log.e("NAME: ", name);
+                Log.e("image", "SETTO IMAGE DI " + name);
 
-                idCardImage.setImageURI(Uri.parse(mImageUri));
+                String mImageUri = preferences.getString("id" + name + "Image", null);
 
-            } else {
-                idCardImage.setImageResource(R.drawable.icon_id_card);
+                if (mImageUri != null) {
+                    idCardImage.setImageURI(Uri.parse(mImageUri));
+                } else {
+                    idCardImage.setImageResource(R.drawable.icon_id_card);
+                }
             }
 
         }catch (Exception ex){
             ex.printStackTrace();
         }
 
-        //CF
+        //ID CARD
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-            String mImageUri = preferences.getString("cfImage", null);
+            List<User> userList = this.mpvm.getAllUsers();
+            List<String> names = new ArrayList<>();
 
-            if (mImageUri != null) {
+            for (User u : userList) {
+                String name = u.getName().replace(" ", "");
+                names.add(name);
+                Log.e("NAME: ", name);
+                Log.e("image", "SETTO IMAGE DI " + name);
 
-                cfCardImage.setImageURI(Uri.parse(mImageUri));
-            } else {
-                cfCardImage.setImageResource(R.drawable.icon_id_card);
+                String mImageUri = preferences.getString("cf" + name + "Image", null);
+
+                if (mImageUri != null) {
+                    idCardImage.setImageURI(Uri.parse(mImageUri));
+                } else {
+                    idCardImage.setImageResource(R.drawable.icon_id_card);
+                }
             }
 
         }catch (Exception ex){
             ex.printStackTrace();
         }
+
 
 
         Button saveBtn = view.findViewById(R.id.saveBtn);
@@ -284,8 +308,9 @@ public class SettingsFragment extends Fragment {
             }
         });
         return view;
+    }
 
-
+    private void getCFAndIdCard() {
 
     }
 
@@ -309,7 +334,7 @@ public class SettingsFragment extends Fragment {
             propic.invalidate();
             propic.setImageURI(uri);
         }
-/*
+
         //ID CARD
         if(requestCode==4  && resultCode==RESULT_OK) {
             Uri uri=data.getData();
@@ -319,9 +344,8 @@ public class SettingsFragment extends Fragment {
             // Saves image URI as string to Default Shared Preferences
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("idImage", String.valueOf(uri));
+            editor.putString("id"+ this.name.replace(" ", "") + "Image", String.valueOf(uri));
             editor.apply();
-
             idCardImage.invalidate();
             idCardImage.setImageURI(uri);
         }
@@ -336,16 +360,12 @@ public class SettingsFragment extends Fragment {
             // Saves image URI as string to Default Shared Preferences
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putStringSet(
-            editor.putString("cfImage", String.valueOf(uri));
+            editor.putString("cf"+ this.name.replace(" ", "") + "Image", String.valueOf(uri));
             editor.apply();
-
-            cfCardImage.setImageURI(uri);
-
 
             cfCardImage.invalidate();
             cfCardImage.setImageURI(uri);
-        }*/
+        }
 
 
     }
