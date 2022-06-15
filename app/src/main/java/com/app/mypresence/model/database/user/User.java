@@ -34,8 +34,10 @@ public class User implements Serializable {
     private String role;
     @ColumnInfo(name = "bio")
     private String bio;
+    @ColumnInfo(name = "company")
+    private String company;
 
-    public User(final String name, final String surname, final String username, final String bio, final String password, final String profile_image, final boolean isAdmin, final String role) {
+    public User(final String name, final String surname, final String username, final String bio, final String password, final String profile_image, final boolean isAdmin, final String role, final String company) {
         this.name = name;
         this.surname = surname;
         this.username = username;
@@ -45,6 +47,7 @@ public class User implements Serializable {
         this.bio = bio;
         this.role = role;
         this.matrice = SHA1.SHA1(AppDatabase.getMyPresNFCcode() + SHA1.SHA1(this.username));
+        this.company = company;
     }
 
     public int getUserId() {return this.userId;}
@@ -109,5 +112,12 @@ public class User implements Serializable {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

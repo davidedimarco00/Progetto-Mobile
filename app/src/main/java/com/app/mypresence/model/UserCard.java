@@ -3,6 +3,7 @@ package com.app.mypresence.model;
 /*MODEL FOR CARDVIEW*/
 
 
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Pair;
 
@@ -17,11 +18,11 @@ public class UserCard {
 
     private String name;
     private String surname;
-    private Uri image;
+    private Drawable image;
     private User user;
     private List<DateInfo> infos;
 
-    public UserCard(String name, String surname, Uri image, User user, List<DateInfo> infos) {
+    public UserCard(String name, String surname, Drawable image, User user, List<DateInfo> infos) {
         this.name = name;
         this.surname = surname;
         this.image = image;
@@ -61,7 +62,7 @@ public class UserCard {
         return surname;
     }
 
-    public Uri getImage() {
+    public Drawable getImage() {
         return image;
     }
 }

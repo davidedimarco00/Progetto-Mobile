@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Stefano/Documents/Universita/Anni-Scolastici/TERZO_ANNO/Corsi/SECONDO_SEMESTRE/Programmazione di Sistemi Mobile/Progetto/myPresence/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Stefano/Documents/Universita/Anni-Scolastici/TERZO_ANNO/Corsi/SECONDO_SEMESTRE/Programmazione di Sistemi Mobile/Progetto/myPresence/app/src/main/res/layout/activity_user.xml" value="0.2564102564102564" />
-        <entry key="..\:/Stefano/Documents/Universita/Anni-Scolastici/TERZO_ANNO/Corsi/SECONDO_SEMESTRE/Programmazione di Sistemi Mobile/Progetto/myPresence/app/src/main/res/layout/fragment_admin.xml" value="0.1" />
+        <entry key="..\:/Stefano/Documents/Universita/Anni-Scolastici/TERZO_ANNO/Corsi/SECONDO_SEMESTRE/Programmazione di Sistemi Mobile/Progetto/myPresence/app/src/main/res/layout/custom_dialog_choose_photo.xml" value="0.24322916666666666" />
+        <entry key="..\:/Stefano/Documents/Universita/Anni-Scolastici/TERZO_ANNO/Corsi/SECONDO_SEMESTRE/Programmazione di Sistemi Mobile/Progetto/myPresence/app/src/main/res/layout/fragment_admin.xml" value="0.33" />
         <entry key="..\:/Stefano/Documents/Universita/Anni-Scolastici/TERZO_ANNO/Corsi/SECONDO_SEMESTRE/Programmazione di Sistemi Mobile/Progetto/myPresence/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Stefano/Documents/Universita/Anni-Scolastici/TERZO_ANNO/Corsi/SECONDO_SEMESTRE/Programmazione di Sistemi Mobile/Progetto/myPresence/app/src/main/res/layout/fragment_statistics.xml" value="0.2997032640949555" />
         <entry key="..\:/Stefano/Documents/Universita/Anni-Scolastici/TERZO_ANNO/Corsi/SECONDO_SEMESTRE/Programmazione di Sistemi Mobile/Progetto/myPresence/app/src/main/res/layout/fragment_user.xml" value="0.2604166666666667" />

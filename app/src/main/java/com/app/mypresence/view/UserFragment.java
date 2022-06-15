@@ -149,7 +149,6 @@ public class UserFragment extends Fragment {
             this.txtUsername = view.findViewById(R.id.txtUsername);
             this.imgProfile = view.findViewById(R.id.imgProfile);
             this.btnStartTurn = view.findViewById(R.id.btnStartTurn);
-            this.btnLoadDoc = view.findViewById(R.id.btnLoadDoc);
             this.signatureImg = view.findViewById(R.id.signatureIcon);
             this.txtBio = view.findViewById(R.id.txtBio1);
             this.txtRole = view.findViewById(R.id.txtRole);
@@ -265,42 +264,42 @@ public class UserFragment extends Fragment {
 
         });
 
-        this.btnLoadDoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
-                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
-                arrayAdapter.add("Choose from gallery");
-                arrayAdapter.add("Take a picture");
-                builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String strName = arrayAdapter.getItem(which);
-                        switch (strName) {
-                            case "Choose from gallery":
-
-                                Intent intent= new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                                startActivityForResult(intent,100);
-
-
-
-                                break;
-                            case "Take a picture":
-                                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(cameraIntent, 100 );
-                                break;
-                        }
-                    }
-                });
-                builderSingle.show();
-            }
-        });
+//        this.btnLoadDoc.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+//                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
+//                arrayAdapter.add("Choose from gallery");
+//                arrayAdapter.add("Take a picture");
+//                builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String strName = arrayAdapter.getItem(which);
+//                        switch (strName) {
+//                            case "Choose from gallery":
+//
+//                                Intent intent= new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+//                                startActivityForResult(intent,100);
+//
+//
+//
+//                                break;
+//                            case "Take a picture":
+//                                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                                startActivityForResult(cameraIntent, 100 );
+//                                break;
+//                        }
+//                    }
+//                });
+//                builderSingle.show();
+//            }
+//        });
 
         this.btnGoToWork.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -108,40 +108,6 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/btnLoadDoc"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_weight="0.5"
-            app:cardCornerRadius="11dp"
-            android:layout_margin="10dp"
-            android:elevation="80dp"
-            android:textColor="@color/purple_500"
-            app:cardElevation="10dp"
-            app:cardPreventCornerOverlap="false">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical|center_horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-
-                    android:src="@drawable/documents_icon"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Documents" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
             android:id="@+id/btnStartTurn"
             android:layout_width="match_parent"
             android:layout_height="180dp"

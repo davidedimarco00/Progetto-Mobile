@@ -30,8 +30,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.MyViewHolder holder, final int position) {
         final UserCard userCard = userCardList.get(position);
-        holder.nameandsurname.setText(userCard.getName());
-        holder.image.setImageURI(userCard.getImage());
+        holder.nameandsurname.setText(userCard.getName() + " " + userCard.getSurname());
+        //holder.image.setImageURI();
+        holder.image.setImageDrawable(userCard.getImage());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

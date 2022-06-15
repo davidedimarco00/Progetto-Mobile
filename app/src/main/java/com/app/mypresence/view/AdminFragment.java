@@ -1,17 +1,25 @@
 package com.app.mypresence.view;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.mypresence.R;
@@ -25,6 +33,7 @@ import com.app.mypresence.model.database.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +48,7 @@ public class AdminFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private List<UserCard> listUserCard = new ArrayList<>();
     private MyPresenceViewModel mpvm;
+    private Bundle bundle;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -71,7 +81,7 @@ public class AdminFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.bundle = this.getArguments().getBundle("userInfo");
         this.mpvm = new MyPresenceViewModel(getActivity().getApplication());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -90,6 +100,13 @@ public class AdminFragment extends Fragment {
         recyclerViewAdapter = new RecyclerViewAdapter(listUserCard);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         recyclerView.setLayoutManager(layoutManager);
+        TextView companyName = view.findViewById(R.id.companyName);
+        String companyNameString = this.bundle.getString("company");
+        Log.e("company name", companyNameString);
+        companyName.setText(companyNameString);
+
+
+
         recyclerViewAdapter.setOnItemClickListener(new ClickListener<UserCard>() {
             @Override
             public void onItemClick(UserCard data) {
@@ -99,6 +116,7 @@ public class AdminFragment extends Fragment {
 
                 arrayAdapter.add("Name: " + data.getName() + " " + data.getSurname());
                 arrayAdapter.add("Role: " + data.getRole());
+                arrayAdapter.add("H.rs this month: " + String.valueOf(data.getHoursAndMinutesWorkedThisMonth().first) + "h : " + String.valueOf(data.getHoursAndMinutesWorkedThisMonth().second) + "mins");
 
                 builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -124,6 +142,23 @@ public class AdminFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(recyclerViewAdapter);
+        view.findViewById(R.id.btnLogOut).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences preferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("loggedIn", false);
+                editor.apply();
+
+                Intent intentToLogin = new Intent(getActivity().getBaseContext(), LoginActivity.class);
+                startActivity(intentToLogin);
+                Toast.makeText(getContext(), "Looged auto succesfully!", Toast.LENGTH_SHORT).show();
+
+                getActivity().finish();
+
+            }
+        });
 
         return view;
     }
@@ -135,7 +170,18 @@ public class AdminFragment extends Fragment {
             for(UserAndStats userAndStats : users){
                 User user = userAndStats.user;
                 List<DateInfo> dateInfos = userAndStats.stats;
-                this.listUserCard.add(new UserCard(user.getName(), user.getSurname(), null, user, dateInfos));
+                Drawable drawableImg = getResources().getDrawable( R.drawable.icon_user );
+                if(user.getRole().equals("Software Engineer") ||
+                        user.getRole().equals("IT Specialist") ||
+                        user.getRole().equals("Machine Learning SWE") ||
+                        user.getRole().equals("Rendering SWE")){
+                    drawableImg = getResources().getDrawable( R.drawable.swe );
+                }else if(user.getRole().equals("HR Manager")){
+                    drawableImg = getResources().getDrawable( R.drawable.hr );
+                } else{
+                    drawableImg = getResources().getDrawable( R.drawable.ceo );
+                }
+                this.listUserCard.add(new UserCard(user.getName(), user.getSurname(), drawableImg, user, dateInfos));
             }
         };
 

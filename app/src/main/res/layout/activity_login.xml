@@ -152,16 +152,6 @@
             android:clickable="true"/>
 
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/forgot_password"
-            android:textColor="#1566e0"
-            android:textSize="10.5sp" />
     </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

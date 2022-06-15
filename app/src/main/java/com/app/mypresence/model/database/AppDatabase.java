@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Database(entities = {User.class, DateInfo.class}, version = 26)
+@Database(entities = {User.class, DateInfo.class}, version = 27)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -66,12 +66,12 @@ public abstract class AppDatabase extends RoomDatabase {
         executor.execute(() -> {
             UserDAO uDao = INSTANCE.userDAO();
             uDao.deleteAll();
-            User user = new User("Davide", "Di Marco", "dima", "PMA","dima1","./", true, "Project Manager Associate");
-            User user2 = new User("Stefano", "Scolari", "scola", "Principal SWE","scola1","./", false, "Software Engineer");
-            User user3 = new User("Lorenzo", "Miccoli", "lore", "I'm an HR guy.","miccoli1","./", false, "HR Manager");
-            User user4 = new User("Chiara", "Cubeddu", "chia", "IT Specialist :)","cubeddu1","./", false, "IT Specialist");
-            User user5 = new User("Giorgia", "Verdi", "gio", "I love ML","verdi1","./", false, "Machine Learning SWE");
-            User user6 = new User("Michela", "Arrigoni", "miche", "I love 3D","arrigoni1","./", false, "Rendering SWE");
+            User user = new User("Davide", "Di Marco", "dima", "PMA","dima1","./", true, "Project Manager Associate", "TAYGA s.r.l.");
+            User user2 = new User("Stefano", "Scolari", "scola", "Principal SWE","scola1","./", false, "Software Engineer", "TAYGA s.r.l.");
+            User user3 = new User("Lorenzo", "Miccoli", "lore", "I'm an HR guy.","miccoli1","./", false, "HR Manager", "TAYGA s.r.l.");
+            User user4 = new User("Chiara", "Cubeddu", "chia", "IT Specialist :)","cubeddu1","./", false, "IT Specialist", "TAYGA s.r.l.");
+            User user5 = new User("Giorgia", "Verdi", "gio", "I love ML","verdi1","./", false, "Machine Learning SWE", "TAYGA s.r.l.");
+            User user6 = new User("Michela", "Arrigoni", "miche", "I love 3D","arrigoni1","./", false, "Rendering SWE", "TAYGA s.r.l.");
             uDao.addUser(user);
             uDao.addUser(user2);
             uDao.addUser(user3);

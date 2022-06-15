@@ -38,6 +38,7 @@ public class UserActivity extends AppCompatActivity {
         this.bottomNavigationView =  (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         this.bottomNavigationView.setSelectedItemId(R.id.btn_profile);
         Bundle infoUser = getIntent().getBundleExtra("userInfo");
+
         String username = infoUser.getString("username");
         String password = infoUser.getString("password");
         String name = infoUser.getString("name");
@@ -55,6 +56,23 @@ public class UserActivity extends AppCompatActivity {
                 userFragment.setArguments(intent.getExtras());
                 this.presenter.showUserFragment(userFragment); //questa linea va decommentata
                 //this.presenter.showAdminFragment(adminFragment); //questa linea è solo per test
+                this.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.btn_statics:
+                                presenter.showStatisticFragment(statisticsFragment);
+                                break;
+                            case R.id.btn_profile:
+                                presenter.showUserFragment(userFragment);
+                                break;
+                            case R.id.btn_settings:
+                                presenter.showSettingsFragment(settingsFragment);
+                                break;
+                        }
+                        return true;
+                    }
+                });
             } else {
                 adminFragment.setArguments(intent.getExtras());
                 this.presenter.showAdminFragment(adminFragment); //questa linea è da decommentare
@@ -63,25 +81,7 @@ public class UserActivity extends AppCompatActivity {
             }
         }
 
-        this.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.btn_statics:
 
-                        presenter.showStatisticFragment(statisticsFragment);
-                        break;
-                    case R.id.btn_profile:
-                        presenter.showUserFragment(userFragment);
-                        break;
-                    case R.id.btn_settings:
-
-                        presenter.showSettingsFragment(settingsFragment);
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     /*@Override

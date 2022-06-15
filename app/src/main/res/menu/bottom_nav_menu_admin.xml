@@ -2,12 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/btn_profile"
-        android:title="Profile"
+        android:title="Employees"
         android:icon="@drawable/user_icon"/>
-    <item
-        android:id="@+id/btn_settings"
-        android:title="Settings"
-        android:icon="@drawable/settings_icon"/>
 </menu>
 
 

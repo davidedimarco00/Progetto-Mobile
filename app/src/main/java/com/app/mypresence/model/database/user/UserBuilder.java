@@ -10,6 +10,7 @@ public class UserBuilder {
     private String profileImage;
     private boolean isAdmin;
     private String role;
+    private String company;
 
     public UserBuilder name(final String name){
         this.name = name;
@@ -23,6 +24,11 @@ public class UserBuilder {
 
     public UserBuilder username(final String username){
         this.username = username;
+        return this;
+    }
+
+    public UserBuilder company(final String company){
+        this.company = company;
         return this;
     }
 
@@ -55,7 +61,7 @@ public class UserBuilder {
         return new User(this.name, this.surname,
                 this.username, this.bio,
                 this.password, this.profileImage,
-                this.isAdmin, this.role);
+                this.isAdmin, this.role,this.company);
     }
 
 }
