@@ -148,12 +148,12 @@ public class AdminFragment extends Fragment {
 
                 SharedPreferences preferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("loggedIn", false);
+                editor.putBoolean("logged in", false);
                 editor.apply();
 
                 Intent intentToLogin = new Intent(getActivity().getBaseContext(), LoginActivity.class);
                 startActivity(intentToLogin);
-                Toast.makeText(getContext(), "Looged auto succesfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Logged out succesfully!", Toast.LENGTH_SHORT).show();
 
                 getActivity().finish();
 
