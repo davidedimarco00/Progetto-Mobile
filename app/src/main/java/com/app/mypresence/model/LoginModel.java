@@ -37,9 +37,11 @@ public class LoginModel extends Model implements LoginModelInterface {
     }
 
     @Override
-    public void saveLogin() {
+    public void saveLogin(String password, String username) {
         SharedPreferences.Editor editor = this.sharedPref.edit();
         editor.putBoolean("loggedIn", true);
+        editor.putString("username", username);
+        editor.putString("password", password);
         editor.apply();
 
         Log.e("login auto ", String.valueOf(this.sharedPref.getBoolean("loggedIn", false)));

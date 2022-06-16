@@ -2,12 +2,9 @@ package com.app.mypresence.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.app.mypresence.model.database.MyPresenceViewModel;
 import com.app.mypresence.model.LoginModel;
 import com.app.mypresence.model.LoginModelInterface;
 import com.app.mypresence.view.UserActivity;
@@ -28,8 +25,8 @@ public class LoginPresenter extends Presenter implements LoginPresenterInterface
     }
 
     @Override
-    public void rememberLogin() {
-        this.model.saveLogin();
+    public void rememberLogin(String password, String username) {
+        this.model.saveLogin(password,username);
     }
 
     @Override

@@ -1,18 +1,18 @@
 package com.app.mypresence.presenter;
 
 import android.os.Handler;
+import android.util.Pair;
 
 import com.app.mypresence.view.LoginActivity;
-import com.app.mypresence.view.UserActivity;
 
 public interface SplashPresenterInterface extends PresenterInterface {
-    void startLoginActivity(Class<LoginActivity> startActivity, Handler handler);
+    void startLoginActivity(Class<LoginActivity> startActivity, Handler handler, String username, String password);
 
     void removeCallBack();
 
     void onResume();
 
-    boolean checkForAutomaticLogin();
+    Pair<Boolean, Pair<String, String>> checkForAutomaticLogin();
 
     void startUserActivity(Handler handler);
 

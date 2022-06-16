@@ -300,7 +300,9 @@ public class SettingsFragment extends Fragment {
 
                 SharedPreferences preferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("logged in", false);
+                editor.putBoolean("loggedIn", false);
+                editor.putString("username", "DEFAULT");
+                editor.putString("password", "DEFAULT");
                 editor.apply();
 
                 Intent intentToLogin = new Intent(getActivity().getBaseContext(), LoginActivity.class);

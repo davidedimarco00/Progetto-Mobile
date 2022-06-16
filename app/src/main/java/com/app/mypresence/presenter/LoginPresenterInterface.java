@@ -8,7 +8,7 @@ public interface LoginPresenterInterface extends PresenterInterface {
 
     void startUserActivity();
 
-    void rememberLogin();
+    void rememberLogin(String password, String username);
 
     AppCompatActivity getActivity();
 

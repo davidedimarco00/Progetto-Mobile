@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
 
         this.presenter  = new LoginPresenter(this);
+        Intent intent = getIntent();
+
+
 
         presenter.hideActionBar();
         loginButton = (AppCompatButton) findViewById(R.id.btnLogin);
@@ -53,11 +57,19 @@ public class LoginActivity extends AppCompatActivity {
         usernameText = (EditText) findViewById(R.id.username_input);
         passwordText = (EditText) findViewById(R.id.pass_input);
 
-        Runnable prepopDBThread = () -> {
-            AppDatabase.prepopulateDBwithDateInfo();
-        };
-        prepopDBThread.run();
+        String usernameString = "DEFAULT";
+        String passwordString = "DEFAULT";
 
+        if(intent.getBundleExtra("userInfoLogin")  != null) {
+            usernameString = intent.getBundleExtra("userInfoLogin").getString("username");
+            passwordString = intent.getBundleExtra("userInfoLogin").getString("password");
+        }
+
+        if(usernameString != "DEFAULT" && passwordString != "DEFAULT"){
+            usernameText.setText(usernameString);
+            passwordText.setText(passwordString);
+            checkBox.setChecked(true);
+        }
 
         loginButton.setOnClickListener(view -> {
 
@@ -68,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             Runnable loginThread = () -> {
                     if (this.presenter.login(password, username)){
                         if (checkBox.isChecked()){
-                            presenter.rememberLogin();
+                            presenter.rememberLogin(password, username);
                         }
                         new MyTask().execute(); //this task show the progress dialog
                         presenter.startUserActivity();
