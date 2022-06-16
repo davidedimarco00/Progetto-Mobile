@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Database(entities = {User.class, DateInfo.class}, version = 29)
+@Database(entities = {User.class, DateInfo.class}, version = 33)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -53,9 +53,10 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE = Room
                             .databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database")
                             .fallbackToDestructiveMigration()
+                            .createFromAsset("database/user.db")
                             .allowMainThreadQueries()
                             .build();
-                    prepopulateDBwithUsers();
+                    //prepopulateDBwithUsers();
                 }
             }
         }

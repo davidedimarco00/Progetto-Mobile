@@ -208,6 +208,7 @@ public class SettingsFragment extends Fragment {
         EditText bio = view.findViewById(R.id.bio_input);
         String actualBio = this.mpvm.getUserFromUsernameAndPassword(this.username, this.password).get(0).getBio();
         bio.setText(actualBio);
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
