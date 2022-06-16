@@ -10,7 +10,9 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -69,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
             usernameText.setText(usernameString);
             passwordText.setText(passwordString);
             checkBox.setChecked(true);
+        }else{
+            checkBox.setChecked(false);
         }
 
         loginButton.setOnClickListener(view -> {
@@ -81,6 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (this.presenter.login(password, username)){
                         if (checkBox.isChecked()){
                             presenter.rememberLogin(password, username);
+                        }else{
+                            presenter.rememberLogin("DEFAULT", "DEFAULT");
                         }
                         new MyTask().execute(); //this task show the progress dialog
                         presenter.startUserActivity();

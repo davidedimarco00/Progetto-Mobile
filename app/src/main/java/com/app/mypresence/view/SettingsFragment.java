@@ -246,7 +246,17 @@ public class SettingsFragment extends Fragment {
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                SharedPreferences preferences = getActivity().getSharedPreferences("loginPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("loggedIn", b);
+                if(!b){
+                    editor.putString("username", "DEFAULT");
+                    editor.putString("password", "DEFAULT");
+                }else{
+                    editor.putString("username", username);
+                    editor.putString("password", password);
+                }
+                editor.apply();
             }
         });
 

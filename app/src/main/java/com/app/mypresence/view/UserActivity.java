@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -38,7 +40,6 @@ public class UserActivity extends AppCompatActivity {
         this.bottomNavigationView =  (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         this.bottomNavigationView.setSelectedItemId(R.id.btn_profile);
         Bundle infoUser = getIntent().getBundleExtra("userInfo");
-
         String username = infoUser.getString("username");
         String password = infoUser.getString("password");
         String name = infoUser.getString("name");
