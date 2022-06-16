@@ -71,13 +71,17 @@ public class UserRepository {
     }
 
     public int totalWorkedHoursThisMonth(final String username, final String password){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         int currentMonth = this.getCurrentMonth();
         List<UserAndStats> userAndStats = this.getUserStats(username, password);
         List<DateInfo> dateInfos = userAndStats.get(0).stats;
         int totalWorkedHours = 0;
         for(DateInfo dateInfo : dateInfos){
             if(dateInfo.getDate().getMonth() == currentMonth){
-                totalWorkedHours += dateInfo.getWorkedHours();
+                if(Integer.valueOf(formatter.format(dateInfo.getDate()).substring(0,2)) != this.getCurrentDay()){
+                    totalWorkedHours += dateInfo.getWorkedHours();
+                }
+
             }
         }
         return totalWorkedHours;
@@ -89,14 +93,23 @@ public class UserRepository {
         return Integer.valueOf(formatter.format(currentDate).substring(3,5))-1;
     }
 
+    private int getCurrentDay(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate = new Date();
+        return Integer.valueOf(formatter.format(currentDate).substring(0,2));
+    }
+
     private int getDaysWorked(final String username, final String password){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         List<UserAndStats> userAndStats = this.getUserStats(username, password);
         List<DateInfo> dateInfos = userAndStats.get(0).stats;
         int days = 0;
         int currentMonth = this.getCurrentMonth();
         for(DateInfo dateInfo : dateInfos){
             if(dateInfo.getDate().getMonth() == currentMonth){
-                days += 1;
+                if(Integer.valueOf(formatter.format(dateInfo.getDate()).substring(0,2)) != this.getCurrentDay()){
+                    days += 1;
+                }
             }
         }
         return days;
